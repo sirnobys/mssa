@@ -31,7 +31,16 @@ router.post('/auth', async function(req,res,next){
      //storing user details in a session to be used outside the route
      req.session.user = user;
      req.session.authenticated = true;
-     res.redirect('dashboard');
+     if (user.priority==3){
+      res.redirect('dashboard');
+     }
+     else if(user.priority==2){
+       res.redirect('completed');
+     }
+     else{
+      res.redirect('solver');
+     }
+     
   }else{
      res.locals.msg = "wrong credentials";
      res.redirect('login');
@@ -40,19 +49,30 @@ router.post('/auth', async function(req,res,next){
 
     //route to display dashboard page
 router.get('/dashboard',isAuthenticated, async function(req, res, next) {
-  var username = req.session.user.username;
+  var username = req.session.user.name;
   //  var dt = await db.query("select * from messages order by id desc");
-  //  var users = await db.query("SELECT * FROM loginform WHERE username = ? limit 1",username);
+    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    
     res.render('dashboard',{
       //user:req.session.user,
       //messages:dt,
-      //account:users
+      account:users
     });
     
    //res.json(dt);
   
 });
+
+//get completed page
+router.get('/solver', function(req, res, next) {
+  res.render('solver', { title: 'Express' });
+});
+
+//get completed page
+router.get('/completed', function(req, res, next) {
+  res.render('completed', { title: 'Express' });
+});
+
 
 //route to update database at status
 router.get('/status/:id',isAuthenticated, async function(req,res,next){
