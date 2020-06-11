@@ -12,7 +12,7 @@ var isAuthenticated = (req, res, next) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Express' });
+  res.render('index', { title: 'Express' });
 });
 
 //get dashboard page
@@ -37,39 +37,80 @@ router.get('/solver', function(req, res, next) {
 
 
 //getting the login page 
-router.get('/login',async function(req, res, next) {
+// router.post("/log", function(req, res, next) {
+//   //storing data entered by user into a variable
+//   var username = req.body.username;
+//   var password = req.body.pass;
+//   const data = [username, password];
+
+//    //query to check the existence of a user
+//    let sql =  db.query(
+//     "SELECT * FROM staff WHERE name = ? and password = ?  ",
+//     data
+//   );
+
+//   //crosschecking user identity to showcase data to them
+//   if (sql.length > 0 ){
+//     req.session.user=sql[0];
+//       req.session.authenticated = true;
+//       req.session.save();
+//       if(sql[0].priority==3){
+//         res.redirect('/dashboard');
+//       }
+//       else if(sql[0].priority==2){
+//         res.redirect('/dashboard');
+//       }
+//       else if(sql[0].priority==1){
+//         res.redirect('/solver');
+//       }
+//       else{
+//         res.locals.msg = "wrong credentials";
+//         console.log('Wrong credentials')
+//     res.redirect("/");
+//       };
+//   }
+
+// });
+
+router.post("/log",  async function(req, res, next) {
   //storing data entered by user into a variable
   var username = req.body.username;
   var password = req.body.password;
   const data = [username, password];
 
-   //query to check the existence of a user
-   let sql = await db.query(
-    "SELECT * FROM staff WHERE username = ? and pass = ?  ",
+  //query to check the existence of a user
+  let sql = await db.query(
+    "SELECT * FROM staff WHERE name = ? and password = ?  ",
     data
   );
 
-  //crosschecking user identity to showcase data to them
-  if (sql.length>0){
-    req.session.user=sql[0];
+
+  /*
+  
+  //use this to access data from 
+  //req.ession.user.deptid
+*/
+
+  if(sql.length > 0){
+      req.session.user = sql[0];
       req.session.authenticated = true;
       req.session.save();
-      if(sql[0].priority==3){
-        res.redirect('/dashboard');
-      }
-      else if(sql[0].priority==2){
-        res.redirect('/dashboard');
-      }
-      else if(sql[0].priority==1){
+      if(sql[0].priority == '1'){
         res.redirect('/solver');
+      }else if(sql[0].priority =='2'){
+        res.redirect('/dashboard')
       }
-      else{
-        res.locals.msg = "wrong credentials";
+      else if(sql[0].priority == 3){
+        res.redirect('/dashboard')
+      }
+  }  
+ 
+  else {
+    res.locals.msg = "wrong credentials";
     res.redirect("/");
-      };
   }
-
 });
+
 
 router.get('/Pro', function(req, res, next) {
   res.render('', { title: 'Express' });
