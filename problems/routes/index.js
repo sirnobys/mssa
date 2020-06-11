@@ -32,29 +32,29 @@ router.post('/auth', async function(req,res,next){
      req.session.user = user;
      req.session.authenticated = true;
      if (user.priority==3){
-      res.redirect('dashboard');
+      res.redirect('/dashboard3');
      }
      else if(user.priority==2){
-       res.redirect('completed');
+       res.redirect('/dashboard2');
      }
      else{
-      res.redirect('solver');
+      res.redirect('/dashboard1');
      }
      
   }else{
      res.locals.msg = "wrong credentials";
-     res.redirect('login');
+     res.redirect('/');
   }
   });
 
-    //route to display dashboard page
-router.get('/dashboard',isAuthenticated, async function(req, res, next) {
+    //route to display dashboard priority three page
+router.get('/dashboard3',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
-  //  var dt = await db.query("select * from messages order by id desc");
+   // var dt = await db.query("select * from messages order by id desc");
     var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    
-    res.render('dashboard',{
-      //user:req.session.user,
+    res.render('priorityThree/dashboard',{
+      user:req.session.user,
       //messages:dt,
       account:users
     });
@@ -63,65 +63,31 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
   
 });
 
-//get completed page
-router.get('/solver', function(req, res, next) {
-  res.render('solver', { title: 'Express' });
-});
-
-//get completed page
-router.get('/completed', function(req, res, next) {
-  res.render('completed', { title: 'Express' });
-});
 
 
-//route to update database at status
-router.get('/status/:id',isAuthenticated, async function(req,res,next){
-  var id = req.params.id;
-  var status = req.query.status;
+//route to display priority two dashboard page
+router.get('/dashboard2',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
 
-  if(status == '0'){
-    var complete = await db.query("UPDATE messages SET status ='Complete' where id = ?",id); 
-  }else{
-    var pending = await db.query("UPDATE messages SET status ='Pending' where id = ?",id); 
-  }
-  res.redirect('/dashboard');
-})
-
-
-
-    //route to display pending page
-    router.get('/pending',isAuthenticated, async function(req, res, next) {
-      var username = req.session.user.username;
-      var dt = await db.query("select * from messages where status is Null order by id desc");
-      //query to print user information
-      var users = await db.query("SELECT * FROM loginform WHERE username = ? limit 1",username);
-       res.render('pending',{
-         user:req.session.user,
-         messages:dt,
-         account:users
-       });
-       
-      //res.json(dt);
-     
+  res.render('priorityTwo/dashboard', { 
+    title: 'Express',
+    account:users
    });
-   
-   //route to display complete page
-   router.get('/complete',isAuthenticated, async function(req, res, next) {
-    var username = req.session.user.username;
-    var dt = await db.query("select * from messages where status is not Null order by id desc");
-    //query to display user details
-    var users = await db.query("SELECT * FROM loginform WHERE username = ? limit 1",username);
-     res.render('complete',{
-       user:req.session.user,
-       messages:dt,
-       account:users
-     });
-     
-    //res.json(dt);
-   
- });
- 
-   
+});
+
+//route to get priority one dashboard page
+router.get('/dashboard1',isAuthenticated, async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+
+  res.render('priorityOne/dashboard', { 
+    title: 'Express' ,
+    account:users
+  });
+});
+
+
 
 
 //route to logout and terminate a user session
