@@ -55,13 +55,13 @@ router.get('/login',async function(req, res, next) {
       req.session.authenticated = true;
       req.session.save();
       if(sql[0].priority==3){
-        res.redirect('');
+        res.redirect('/dashboard');
       }
       else if(sql[0].priority==2){
-        res.redirect('');
+        res.redirect('/dashboard');
       }
       else if(sql[0].priority==1){
-        res.redirect('');
+        res.redirect('/solver');
       }
       else{
         res.locals.msg = "wrong credentials";
