@@ -13,24 +13,10 @@ var isAuthenticated = (req,res,next)=>{
   next()
 }
 
-//get dashboard page
-router.get('/dash', function(req, res, next) {
-  res.render('dashboard', { title: 'Express' });
-});
-
-//get assigned page
-router.get('/assigned', function(req, res, next) {
-  res.render('assigned', { title: 'Express' });
-});
 
 //get completed page
-router.get('/completed', function(req, res, next) {
-  res.render('/completed', { title: 'Express' });
-});
-
-//get completed page
-router.get('/solver', function(req, res, next) {
-  res.render('solver', { title: 'Express' });
+router.get('/complaint', function(req, res, next) {
+  res.send('respond with a resource');
 });
 
 //route to update database at status

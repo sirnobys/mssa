@@ -62,7 +62,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm">
+              <form id="quickForm" action="/users/complaint" method="get">
                 <div class="card-body">
                   <div class="form-row">
                     <div class="form-group col-md-6">
@@ -147,7 +147,7 @@
 $(function () {
   $.validator.setDefaults({
     submitHandler: function () {
-      alert( "Form successfully submitted!" );
+      alert( "Form successfully submitted!");
     }
   });
   $('#quickForm').validate({
