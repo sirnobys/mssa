@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include partials/head.ejs-%>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<div class="wrapper">
+  <!-- Navbar -->
+  <%-include partials/navbar.ejs-%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include partials/sidebar.ejs-%>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+     <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active">Home</li>
+              <li class="breadcrumb-item "><a href="/assigned3">Assigned Issues</a></li>
+              <li class="breadcrumb-item "><a href="/completed3">Completed</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+           <section class="content">
+      <div class="container-fluid">
+        <div class="">
+          
+            
+            <!-- /.card -->
+
+            <div class="card">
+              <div class="card-header bg-primary">
+                <h3 class="card-title">New Issues</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Issue</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <%  problem.map((problems) => { %>
+                    <tr>
+                      
+                      <td><%= problems.name %></td>                   
+                      <td><%= problems.staff_student_id%></td>
+                      <td><%= problems.email%></td>  
+                      <td><%= problems.phone%></td>  
+                      <td><%= problems.issue%></td>                                                                                     
+                    
+                    </tr>
+                    <% }) %>
+                  
+                
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Issue</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     
+      <!-- /.container-fluid -->
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
+
+ 
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <%-include partials/footer.ejs-%>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include partials/scripts.ejs-%>
+</body>
+</html>
