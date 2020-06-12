@@ -133,6 +133,7 @@ router.get('/completed2',isAuthenticated, async function(req, res, next) {
 router.get('/assigned3',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  var problems = await db.query("SELECT * FROM problems")
   res.render('priorityThree/assigned', { 
     title: 'Express',
   account:users });
@@ -142,9 +143,13 @@ router.get('/assigned3',isAuthenticated, async function(req, res, next) {
 router.get('/completed3',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  var completed = 1;
+  var problems = await db.query("SELECT * FROM problems where completed =?",completed)
   res.render('priorityThree/completed', { 
     title: 'Express',
-  account:users });
+  account:users ,
+  problem:problems
+});
 });
 
 
