@@ -2,10 +2,10 @@ const util = require('util')
 const mysql = require('mysql')
 const pool = mysql.createPool({
   //connectionLimit: 10,
-  host     : 'localhost',
+  host     : '127.0.0.1',
 	user     : 'root',
-	password : '',
-	database : 'mssa'
+	password : '@Exiled21',
+	database : 'mmsa'
 })
 // var connection = mysql.createConnection({
 // 	host     : 'localhost',
