@@ -20,9 +20,9 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item "><a href="/dashboard2">Home</a></li>
-              <li class="breadcrumb-item active">Assigned Issues</li>
-              <li class="breadcrumb-item "><a href="/completed2">Completed</a></li>
+              <li class="breadcrumb-item active">Home</li>
+              <li class="breadcrumb-item "><a href="/assigned3">Assigned Issues</a></li>
+              <li class="breadcrumb-item "><a href="/completed3">Completed</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -39,8 +39,8 @@
             <!-- /.card -->
 
             <div class="card">
-              <div class="card-header bg-secondary">
-                <h3 class="card-title">Assigned issues</h3>
+              <div class="card-header bg-primary">
+                <h3 class="card-title">New Issues</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -55,19 +55,19 @@
                   </tr>
                   </thead>
                   <tbody>
-         
                     <%  problem.map((problems) => { %>
-                      <tr>
-                       
-                        <td><%= problems.name %></td>                   
-                        <td><%= problems.staff_student_id%></td>
-                        <td><%= problems.email%></td>  
-                        <td><%= problems.phone%></td>  
-                        <td><%= problems.issue%></td>                                                                                     
+                    <tr>
                       
-                      </tr>
-                      <% }) %>
+                      <td><%= problems.name %></td>                   
+                      <td><%= problems.staff_student_id%></td>
+                      <td><%= problems.email%></td>  
+                      <td><%= problems.phone%></td>  
+                      <td><%= problems.issue%></td>                                                                                     
                     
+                    </tr>
+                    <% }) %>
+                  
+                
                   </tbody>
                   <tfoot>
                   <tr>

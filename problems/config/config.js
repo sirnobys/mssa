@@ -4,8 +4,8 @@ const pool = mysql.createPool({
   //connectionLimit: 10,
   host     : 'localhost',
 	user     : 'root',
-	password : '@Exiled21',
-	database : 'mmsa'
+	password : '',
+	database : 'mssa'
 })
 // var connection = mysql.createConnection({
 // 	host     : 'localhost',
