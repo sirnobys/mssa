@@ -113,6 +113,20 @@ router.get('/completed1',isAuthenticated, async function(req, res, next) {
     account:users});
 });
 
+//get issues3 page
+router.get('/issues1',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  var completed = 1;
+  var problems = await db.query("SELECT * FROM problems where completed =?",completed)
+  res.render('priorityOne/issues', { 
+    title: 'Express',
+  account:users ,
+  problem:problems
+});
+});
+
+
 //get assigned2 page
 router.get('/assigned2',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
@@ -130,6 +144,20 @@ router.get('/completed2',isAuthenticated, async function(req, res, next) {
     title: 'Express',
   account:users });
 });
+
+//get issues2 page
+router.get('/issues2',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  var completed = 1;
+  var problems = await db.query("SELECT * FROM problems where completed =?",completed)
+  res.render('priorityTwo/issues', { 
+    title: 'Express',
+  account:users ,
+  problem:problems
+});
+});
+
 
 
 //get assigned3 page
@@ -151,6 +179,19 @@ router.get('/completed3',isAuthenticated,async function(req, res, next) {
   var completed = 1;
   var problems = await db.query("SELECT * FROM problems where completed =?",completed)
   res.render('priorityThree/completed', { 
+    title: 'Express',
+  account:users ,
+  problem:problems
+});
+});
+
+//get issues3 page
+router.get('/issues3',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  var completed = 1;
+  var problems = await db.query("SELECT * FROM problems where completed =?",completed)
+  res.render('priorityThree/issues', { 
     title: 'Express',
   account:users ,
   problem:problems
