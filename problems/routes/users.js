@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+//calling database file to connect to database
+var db = require('../config/config');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -15,8 +18,21 @@ var isAuthenticated = (req,res,next)=>{
 
 
 //get completed page
-router.get('/complaint', function(req, res, next) {
-  res.send('respond with a resource');
+router.post('/complaint', async function(req, res, next,error) {
+  var name = req.body.name;
+  var id = req.body.staff_student_id;
+  var phone = req.body.phone;
+  var email = req.body.email;
+  var problem = req.body.problem;
+  const data = [name,id,email,phone,problem]
+try {
+  let sql = await db.query("INSEERT INTO problems(name,staff_student_id,email,phone,issue) VALUES(?,?,?,?,?)",data);
+  res.redirect('/');
+} catch (error) {
+  res.send("Problem exists");
+  console.log(error);
+}
+
 });
 
 //route to update database at status

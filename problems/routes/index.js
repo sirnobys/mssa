@@ -93,36 +93,79 @@ router.get('/dashboard1',isAuthenticated, async function(req, res, next) {
 
 
 //get assigned1 page
-router.get('/assigned1', function(req, res, next) {
-  res.render('priorityOne/assigned', { title: 'Express' });
+router.get('/assigned1',isAuthenticated, async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityOne/assigned', { 
+    title: 'Express',
+  account:users });
 });
 
 //get completed1 page
-router.get('/completed1', function(req, res, next) {
-  res.render('priorityOne/completed', { title: 'Express' });
+router.get('/completed1',isAuthenticated, async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityOne/completed', {
+     title: 'Express' ,
+    account:users});
 });
 
 //get assigned2 page
-router.get('/assigned2', function(req, res, next) {
-  res.render('priorityTwo/assigned', { title: 'Express' });
+router.get('/assigned2',isAuthenticated, async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityTwo/assigned', {
+     title: 'Express',
+    account:users });
 });
 
 //get completed2 page
-router.get('/completed2', function(req, res, next) {
-  res.render('priorityTwo/completed', { title: 'Express' });
+router.get('/completed2',isAuthenticated, async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityTwo/completed', { 
+    title: 'Express',
+  account:users });
 });
 
 
 //get assigned3 page
-router.get('/assigned3', function(req, res, next) {
-  res.render('priorityThree/assigned', { title: 'Express' });
+router.get('/assigned3',isAuthenticated, async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityThree/assigned', { 
+    title: 'Express',
+  account:users });
 });
 
 //get completed3 page
-router.get('/completed3', function(req, res, next) {
-  res.render('priorityThree/completed', { title: 'Express' });
+router.get('/completed3',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityThree/completed', { 
+    title: 'Express',
+  account:users });
 });
 
+
+
+//get completed page
+router.post('/complaint', async function(req, res, next,error) {
+  var name = req.body.name;
+  var id = req.body.staff_student_id;
+  var phone = req.body.phone;
+  var email = req.body.email;
+  var problem = req.body.problem;
+  const data = [name,id,email,phone,problem]
+
+  let sql = await db.query("INSEERT INTO problems(name,staff_student_id,email,phone,issue) VALUES(?,?,?,?,?)",data);
+  res.redirect('/');
+
+  //res.send("Problem exists");
+ 
+
+
+});
 
 //route to logout and terminate a user session
 router.get('/logout', function(req, res, next) {
