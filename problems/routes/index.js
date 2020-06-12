@@ -12,6 +12,10 @@ var isAuthenticated = (req,res,next)=>{
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.render('complaint', { title: 'Express' });
+});
+
+router.get('/admin', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
@@ -88,6 +92,36 @@ router.get('/dashboard1',isAuthenticated, async function(req, res, next) {
 });
 
 
+//get assigned1 page
+router.get('/assigned1', function(req, res, next) {
+  res.render('priorityOne/assigned', { title: 'Express' });
+});
+
+//get completed1 page
+router.get('/completed1', function(req, res, next) {
+  res.render('priorityOne/completed', { title: 'Express' });
+});
+
+//get assigned2 page
+router.get('/assigned2', function(req, res, next) {
+  res.render('priorityTwo/assigned', { title: 'Express' });
+});
+
+//get completed2 page
+router.get('/completed2', function(req, res, next) {
+  res.render('priorityTwo/completed', { title: 'Express' });
+});
+
+
+//get assigned3 page
+router.get('/assigned3', function(req, res, next) {
+  res.render('priorityThree/assigned', { title: 'Express' });
+});
+
+//get completed3 page
+router.get('/completed3', function(req, res, next) {
+  res.render('priorityThree/completed', { title: 'Express' });
+});
 
 
 //route to logout and terminate a user session
