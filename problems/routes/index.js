@@ -133,10 +133,12 @@ router.get('/completed2',isAuthenticated, async function(req, res, next) {
 router.get('/assigned3',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  var problems = await db.query("SELECT * FROM problems")
+  var problems = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL");
   res.render('priorityThree/assigned', { 
     title: 'Express',
-  account:users });
+  account:users ,
+  problem:problems
+});
 });
 
 //get completed3 page
