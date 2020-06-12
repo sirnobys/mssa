@@ -6,7 +6,7 @@ var db = require('../config/config');
 
 //function to verify if the user is logged in
 var isAuthenticated = (req,res,next)=>{
-  if(!req.session.authenticated) res.redirect('/') 
+  if(!req.session.authenticated) res.redirect('/admin') 
   next()
 }
 
@@ -47,7 +47,7 @@ router.post('/auth', async function(req,res,next){
      
   }else{
      res.locals.msg = "wrong credentials";
-     res.redirect('/');
+     res.redirect('/admin');
   }
   });
 
@@ -56,11 +56,12 @@ router.get('/dashboard3',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
    // var dt = await db.query("select * from messages order by id desc");
     var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-   
+    var problems = await db.query("SELECT * FROM problems");
     res.render('priorityThree/dashboard',{
       user:req.session.user,
       //messages:dt,
-      account:users
+      account:users,
+      problem:problems
     });
     
    //res.json(dt);
@@ -73,10 +74,11 @@ router.get('/dashboard3',isAuthenticated, async function(req, res, next) {
 router.get('/dashboard2',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-
+  var problems = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL");
   res.render('priorityTwo/dashboard', { 
     title: 'Express',
-    account:users
+    account:users,
+    problem:problems
    });
 });
 
@@ -84,10 +86,11 @@ router.get('/dashboard2',isAuthenticated,async function(req, res, next) {
 router.get('/dashboard1',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-
+  var problems = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL");
   res.render('priorityOne/dashboard', { 
     title: 'Express' ,
-    account:users
+    account:users,
+    problem:problems
   });
 });
 

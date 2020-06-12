@@ -58,16 +58,18 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                  </tr>
-                
+                    <%  problem.map((problems) => { %>
+                      <tr>
+                       
+                          <td><%= problems.name %></td>                   
+                        <td><%= problems.staff_student_id%></td>
+                        <td><%= problems.email%></td>  
+                        <td><%= problems.phone%></td>  
+                        <td><%= problems.issue%></td>                                                                                     
+                      
+                      </tr>
+                      <% }) %>
+                    
                
                   </tbody>
                   <tfoot>
