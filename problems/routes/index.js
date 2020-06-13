@@ -236,22 +236,21 @@ router.get('/issues3',isAuthenticated,async function(req, res, next) {
 
 
 //get completed page
-router.post('/complaint', async function(req, res, next,error) {
-  var name = req.body.name;
-  var id = req.body.staff_student_id;
+router.post('/insert', function(req, res, next) {
+  var name=req.body.name;
+  var staff_student_id = req.body.staff_student_id;
   var phone = req.body.phone;
   var email = req.body.email;
-  var problem = req.body.problem;
-  const data = [name,id,email,phone,problem]
-
-  let sql = await db.query("INSEERT INTO problems(name,staff_student_id,email,phone,issue) VALUES(?,?,?,?,?)",data);
-  res.redirect('/');
-
-  //res.send("Problem exists");
- 
-
-
+  var issue = req.body.problem;
+  var data= [name,staff_student_id,email,phone,issue];
+  let sql = db.query("INSERT INTO problems (name,staff_student_id,email,phone,issue) VALUES(?,?,?,?,?)",data)
+  res.redirect('/success');
 });
+
+router.get('/success', function(req, res, next) {
+  res.render('success', { title: 'Express' });
+});
+
 
 //route to logout and terminate a user session
 router.get('/logout', function(req, res, next) {
