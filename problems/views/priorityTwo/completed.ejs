@@ -65,7 +65,12 @@
                         <td><%= problems.staff_student_id%></td>
                         <td><%= problems.email%></td>  
                         <td><%= problems.phone%></td>  
-                        <td><%= problems.issue%></td>                                                                                     
+                        <td><%= problems.issue%></td>  
+                        <!-- <td><span class="card bg-success text-center">Completed</span></td> -->
+                        
+                        <td class="bg-white text-center">
+                        <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                      </td>                                                                        
                       
                       </tr>
                       <% }) %>
