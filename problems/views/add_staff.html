@@ -8,9 +8,10 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../public/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../public/dist/css/adminlte.min.css">
+   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body class="bg1">
 <div class="wrapper">
@@ -33,7 +34,7 @@
    
 
 
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/images/3.jpg"); /* The least supported option. */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../public/images/3.jpg"); /* The least supported option. */
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -62,7 +63,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form id="quickForm" action="/insert" method="post">
+              <form id="quickForm" action="" method="post">
                 <div class="card-body">
                   <div class="form-row">
                     <div class="form-group col-md-6">
@@ -70,9 +71,9 @@
                        <input type="text" name="name" class="form-control" id="" placeholder="Enter name">
                     </div>
                    <div class="form-group col-md-6">
-                       <label for="staff_student_id">Staff/Student ID</label>
-                       <input type="text" name="staff_student_id" class="form-control" id="" placeholder="Enter ID">
-                    </div>
+                      <label for="email">Email</label>
+                      <input type="email" name="email" class="form-control" id="" placeholder="Email">
+                   </div>
 
                   </div>
 
@@ -82,18 +83,34 @@
                        <input type="number" name="phone" class="form-control" id="" placeholder="Enter phone">
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="email">Email</label>
-                      <input type="email" name="email" class="form-control" id="" placeholder="Email">
+                      <label for="priority">Priority Level</label>
+                      <select class="form-control" name="priority">
+                        <option >Select level</option>
+                        <option>Level 1</option>
+                        <option>Level 2</option>
+                        <option>Level 3</option>
+                      </select>
                    </div>
 
                   </div>
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
+                       <label for="name">Password</label>
+                       <input type="password" name="password" class="form-control" id="" placeholder="Password">
+                    </div>
+                   <div class="form-group col-md-6">
+                      <label for="email">Confirm Password</label>
+                      <input type="password" name="cpassword" class="form-control" id="" placeholder="Confirm Password">
+                   </div>
+
+                  </div>
+                 <!--  <div class="form-row">
+                    <div class="form-group col-md-6">
                        <label for="problem">Report problem</label>
                        <textarea type="text" name="problem" class="form-control" id="" placeholder="Type in your problem"></textarea>
                     </div>
-                  </div>
+                  </div> -->
                   
                   
                  <!--  <div class="form-group mb-0">
@@ -105,7 +122,8 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                 <center><button type="submit" class="btn btn-primary">Submit now!</button></center> 
+                 <center><button type="submit" class="btn btn-primary">      
+        <i class="ion ion-person-add"></i> Add Staff!</button></center> 
                 </div>
               </form>
             </div>
@@ -133,16 +151,16 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="../public/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- jquery-validation -->
-<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
-<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+<script src="../public/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="../public/plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="../public/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="../public/dist/js/demo.js"></script>
 <script>
 $(function () {
   // $.validator.setDefaults({
@@ -162,7 +180,7 @@ $(function () {
         // minlength: 10
       },
 
-       staff_student_id: {
+       password: {
         required: true,
         // minlength: 10
       },
@@ -173,12 +191,12 @@ $(function () {
         // minlength: 10
       },
 
-      terms: {
+      cpassword: {
         required: true
       },
 
 
-       problem: {
+       priority: {
         required: true,
         // minlength: 10
       },
@@ -195,13 +213,13 @@ $(function () {
         
       },
 
-      staff_student_id: {
-        required: "Please provide your ID number",
+      password: {
+        required: "Please enter your password",
         
       },
 
-      problem: {
-        required: "Please let us know your problem",
+      priority: {
+        required: "Please select a priority level",
         
       },
 

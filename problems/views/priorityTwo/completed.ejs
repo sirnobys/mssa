@@ -47,13 +47,14 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                  <thead class="bg-success">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Trash</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -67,7 +68,7 @@
                         <td><%= problems.phone%></td>  
                         <td><%= problems.issue%></td>  
                         <!-- <td><span class="card bg-success text-center">Completed</span></td> -->
-                        
+
                         <td class="bg-white text-center">
                         <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button>
                       </td>                                                                        
@@ -76,13 +77,15 @@
                       <% }) %>
                     
                   </tbody>
-                  <tfoot>
+                  <tfoot class="bg-success">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Trash</th>
+
                   </tr>
                   </tfoot>
                 </table>
