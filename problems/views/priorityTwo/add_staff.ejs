@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include partials/head.ejs-%>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<div class="wrapper">
+  <!-- Navbar -->
+  <%-include partials/navbar.ejs-%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include partials/sidebar.ejs-%>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+     <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Add Staff</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item "><a href="/dashboard2">Home</a></li>
+              <li class="breadcrumb-item"><a href="/assigned2">Assigned Issues</a></li>
+              <li class="breadcrumb-item active">Completed</li>
+              <li class="breadcrumb-item "><a href="/issues2">New Issues</a></li>
+            </ol>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+           <section class="content">
+      <div class="container-fluid">
+        <div class="">
+          
+            
+            <!-- /.card -->
+            <div class="card card-primary">
+                <div class="card-header bstyle card-title">
+                  <center>Add Staff</center>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form id="quickForm" action="/insert_staff" method="post">
+                  <div class="card-body">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                         <label for="name">Name</label>
+                         <input type="text" name="name" class="form-control" id="" placeholder="Enter name">
+                      </div>
+                     <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="" placeholder="Email">
+                     </div>
+  
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                         <label for="phone">Phone</label>
+                         <input type="number" name="phone" class="form-control" id="" placeholder="Enter phone">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="priority">Priority Level</label>
+                        <select class="form-control" name="priority">
+                          <option disabled selected >Select level</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                        </select>
+                     </div>
+  
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                         <label for="name">Password</label>
+                         <input type="password" name="password" class="form-control" id="" placeholder="Password">
+                      </div>
+                     <div class="form-group col-md-6">
+                        <label for="email">Confirm Password</label>
+                        <input type="password" name="cpassword" class="form-control" id="" placeholder="Confirm Password">
+                     </div>
+  
+                    </div>
+                   <!--  <div class="form-row">
+                      <div class="form-group col-md-6">
+                         <label for="problem">Report problem</label>
+                         <textarea type="text" name="problem" class="form-control" id="" placeholder="Type in your problem"></textarea>
+                      </div>
+                    </div> -->
+                    
+                    
+                   <!--  <div class="form-group mb-0">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="terms" class="custom-control-input" id="exampleCheck1">
+                        <label class="custom-control-label" for="exampleCheck1">I agree to the <a href="#">terms of service</a>.</label>
+                      </div>
+                    </div> -->
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                   <center><button type="submit" class="btn btn-primary">      
+          <i class="ion ion-person-add"></i> Add Staff!</button></center> 
+                  </div>
+                </form>
+              </div>
+          
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     
+      <!-- /.container-fluid -->
+    </section>
+  </div>
+  <!-- /.content-wrapper -->
+
+ 
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <%-include partials/footer.ejs-%>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include partials/scripts.ejs-%>
+<script>
+    $(function () {
+    //   $.validator.setDefaults({
+    //     $submitHandler: function () {
+    //       alert( "Form successfully submitted!");
+          
+    //     }
+    //   });
+      $('#quickForm').validate({
+        rules: {
+          email: {
+            required: true,
+            email: true,
+          },
+          phone: {
+            required: true,
+            // minlength: 10
+          },
+    
+           password: {
+            required: true,
+            // minlength: 10
+          },
+    
+    
+           name: {
+            required: true,
+            // minlength: 10
+          },
+    
+          cpassword: {
+            required: true
+          },
+    
+    
+           priority: {
+            required: true,
+            // minlength: 10
+          },
+        },
+        messages: {
+          email: {
+            required: "Please enter your email address",
+            email: "Please enter a vaild email address"
+          },
+         
+    
+            name: {
+            required: "Please provide your name",
+            
+          },
+    
+          password: {
+            required: "Please enter your password",
+            
+          },
+    
+          priority: {
+            required: "Please select a priority level",
+            
+          },
+    
+          phone: {
+            required: "Please provide your phone number",
+            
+          },
+        
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    });
+    </script>
+</body>
+</html>

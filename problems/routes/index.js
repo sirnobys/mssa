@@ -197,6 +197,8 @@ router.get('/issues2',isAuthenticated,async function(req, res, next) {
 
 
 
+
+
 //get assigned3 page
 router.get('/assigned3',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
@@ -249,7 +251,43 @@ router.post('/insert', function(req, res, next) {
   res.redirect('/success');
 });
 
-router.get('/success', function(req, res, next) {
+//get add_staff page
+router.get('/add_staff',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  //var staff = await db.query("SELECT * FROM staff ");
+  //var completed = 1;
+  //var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+  res.render('priorityTwo/add_staff', { 
+    title: 'Express',
+  account:users ,
+ // problem:problems,
+  //staff:staff
+});
+});
+
+//get add_staff page
+router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var name=req.body.name;
+  //var staff_student_id = req.body.staff_student_id;
+  var phone = req.body.phone;
+  var email = req.body.email;
+  var priority = req.body.priority
+  var data= [name,email,phone,priority];
+  let sql = db.query("INSERT INTO staff (name,email,phone,password,priority) VALUES(?,?,?,?,?)",data)
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  //var staff = await db.query("SELECT * FROM staff ");
+  //var completed = 1;
+  //var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+  res.redirect('/success');
+});
+
+
+
+
+router.get('/success',isAuthenticated, function(req, res, next) {
   res.render('success', { title: 'Express' });
 });
 
