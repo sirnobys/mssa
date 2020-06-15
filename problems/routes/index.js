@@ -19,6 +19,9 @@ router.get('/admin', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
+router.get('/staff_success', function(req, res, next) {
+  res.render('priorityTwo/staff_success', { title: 'Express' });
+});
 
 //route to check if user exists in database, if not go back to login page
 router.post('/auth', async function(req,res,next){
@@ -281,7 +284,7 @@ router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
   //var staff = await db.query("SELECT * FROM staff ");
   //var completed = 1;
   //var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
-  res.redirect('/success');
+  res.redirect('/staff_success');
 });
 
 
