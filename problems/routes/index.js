@@ -184,12 +184,14 @@ router.get('/completed2',isAuthenticated, async function(req, res, next) {
 router.get('/issues2',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  var staff = await db.query("SELECT * FROM staff ");
   //var completed = 1;
   var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
   res.render('priorityTwo/issues', { 
     title: 'Express',
   account:users ,
-  problem:problems
+  problem:problems,
+  staff:staff
 });
 });
 

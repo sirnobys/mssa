@@ -70,21 +70,22 @@
                       <!-- select -->
                       <div class="col-sm-8 mr-auto ml-auto">
                         
-                        <select class="form-control my-1">
-                          <option>Select one</option>
-                          <option>kkk</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
+                        <select class="form-control ">
+                          <option disabled selected>Select staff</option>
+                          <%  staff.map((staff) => { %>
+                          
+                          <option><%=staff.name%></option>
+                          <% }) %>
+                          
                         </select>
-
+                     
                       </div>
 
 
                       <div class="mr-auto ml-auto">
 
                     
-                      <button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat swalDefaultSuccess"><i class="fa fa-arrow-right"  aria-hidden="true"></i></button>
+                      <button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat swalDefaultSuccess"><i class="fa fa-arrow-circle-right"  aria-hidden="true"></i></button>
                     
 
                       </div>
