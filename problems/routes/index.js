@@ -284,7 +284,13 @@ router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
   res.redirect('/success');
 });
 
+router.get('/delete/:id',isAuthenticated, async function(req,res,next){
+  var id = req.params.id;
+  //var status = req.query.status;
 
+    var del = await db.query("DELETE FROM problems where id = ?",id); 
+    res.redirect('/completed2');
+})
 
 
 router.get('/success',isAuthenticated, function(req, res, next) {
