@@ -43,6 +43,9 @@
 <script src="plugins/chart.js/Chart.min.js"></script>
 <script src="dist/js/demo.js"></script>
 <script src="dist/js/pages/dashboard.js"></script>
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
 <!-- Bootstrap 4 -->
 <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -69,18 +72,6 @@
     });
   });
 </script>
-<!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
-button type="button" class="btn btn-success swalDefaultSuccess">
-                  Launch Success Toast
-                </button>
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="../../plugins/toastr/toastr.min.js"></script>
 <script>
   $(function() {
     var Toast = Swal.mixin({
@@ -93,7 +84,7 @@ button type="button" class="btn btn-success swalDefaultSuccess">
     $('.swalDefaultSuccess').click(function() {
       Toast.fire({
         icon: 'success',
-        title: 'Issue successfully assigned.'
+        title: 'Assigned successfully.'
       })
     });
     $('.swalDefaultInfo').click(function() {

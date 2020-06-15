@@ -53,18 +53,21 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Trash</th>
                   </tr>
                   </thead>
                   <tbody>
                     <%  problem.map((problems) => { %>
                       <tr>
                        
-                          <td><%= problems.name %></td>                   
+                        <td><%= problems.name %></td>                   
                         <td><%= problems.staff_student_id%></td>
                         <td><%= problems.email%></td>  
                         <td><%= problems.phone%></td>  
                         <td><%= problems.issue%></td>                                                                                     
-                      
+                         <td class="bg-white text-center">
+                        <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                      </td>   
                       </tr>
                       <% }) %>
                     
@@ -78,6 +81,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Trash</th>
                   </tr>
                   </tfoot>
                 </table>

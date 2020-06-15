@@ -46,16 +46,19 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                  <thead class="bg-secondary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Assigned to</th>
+                    <th>Edit</th>
                   </tr>
                   </thead>
                   <tbody>
+         
                     <%  problem.map((problems) => { %>
                   <tr>
                    
@@ -70,13 +73,16 @@
                   <% }) %>
                 
                   </tbody>
-                  <tfoot>
+                  <tfoot class="bg-secondary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Assigned to</th>
+                    <th>Edit</th>
+                    
                   </tr>
                   </tfoot>
                 </table>

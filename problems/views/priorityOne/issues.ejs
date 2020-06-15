@@ -53,6 +53,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -63,8 +64,18 @@
                       <td><%= problems.staff_student_id%></td>
                       <td><%= problems.email%></td>  
                       <td><%= problems.phone%></td>  
-                      <td><%= problems.issue%></td>                                                                                     
+                      <td><%= problems.issue%></td>                                                                                 
+                      <td>
+                           <div class="mr-auto ml-auto">
+
                     
+                      <button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat"> 
+                        <i class="fas fa-check"></i>
+                      </button>
+                    
+
+                      </div>
+                        </td>   
                     </tr>
                     <% }) %>
                   
@@ -77,6 +88,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Action</th>
                   </tr>
                   </tfoot>
                 </table>

@@ -46,13 +46,14 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                  <thead class="bg-primary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Assign to</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -63,20 +64,48 @@
                       <td><%= problems.staff_student_id%></td>
                       <td><%= problems.email%></td>  
                       <td><%= problems.phone%></td>  
-                      <td><%= problems.issue%></td>                                                                                     
+                      <td><%= problems.issue%></td>
+                      <td>
+                        <div class="row">
+                      <!-- select -->
+                      <div class="col-sm-9 mr-auto ml-auto">
+                        
+                        <select disabled="" class="form-control my-1">
+                          <option>Select one</option>
+                          <option>kkk</option>
+                          <option>option 3</option>
+                          <option>option 4</option>
+                          <option>option 5</option>
+                        </select>
+
+                      </div>
+
+
+                      <div class="mr-auto ml-auto">
+
                     
+                      <button type="button" disabled="" class=" my-1 btn btn-block btn-outline-success btn-flat swalDefaultSuccess"><i class="fa fa-arrow-right"  aria-hidden="true"></i></button>
+                    
+
+                      </div>
+
+                    
+                      </td>   
+                                                                                                    
+                   
                     </tr>
                     <% }) %>
                   
                 
                   </tbody>
-                  <tfoot>
+                  <tfoot class="bg-primary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Assign to</th>
                   </tr>
                   </tfoot>
                 </table>
