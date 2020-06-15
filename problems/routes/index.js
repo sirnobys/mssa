@@ -145,9 +145,9 @@ router.get('/completed1',isAuthenticated, async function(req, res, next) {
 router.get('/issues1',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  var completed = 1;
-  var data=[username,completed]
-  var problems = await db.query("SELECT * FROM problems where assigned_to=? and completed =?",data)
+  //var completed = 1;
+  var data=[username];
+  var problems = await db.query("SELECT * FROM problems where assigned_to=? and completed is NULL",data);
   res.render('priorityOne/issues', { 
     title: 'Express',
   account:users ,
@@ -298,6 +298,14 @@ router.get('/assign/:id',isAuthenticated, async function(req,res,next){
 
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
     res.redirect('/issues2');
+});
+
+router.get('/complete/:id',isAuthenticated, async function(req,res,next){
+  var id = req.params.id;
+  //var status = req.query.status;
+
+    var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
+    res.redirect('/issues1');
 });
 
 
