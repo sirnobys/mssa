@@ -128,9 +128,19 @@
   <%-include partials/footer.ejs-%>
 </div>
 <!-- ./wrapper -->
-
-<!-- REQUIRED SCRIPTS -->
 <%-include partials/scripts.ejs-%>
+<!-- REQUIRED SCRIPTS -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- jquery-validation -->
+<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
 <script>
     $(function () {
     //   $.validator.setDefaults({
@@ -152,7 +162,7 @@
     
            password: {
             required: true,
-            // minlength: 10
+            minlength: 5
           },
     
     
@@ -162,7 +172,8 @@
           },
     
           cpassword: {
-            required: true
+            required: true,
+            equalTo : "#password"
           },
     
     
@@ -186,6 +197,10 @@
           password: {
             required: "Please enter your password",
             
+          },
+          cpassword: {
+            required: "Please enter your password again",
+            equalTo:"Passwords do not match"
           },
     
           priority: {
