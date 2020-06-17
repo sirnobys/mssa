@@ -61,3 +61,6 @@ TODO
 test.html
 ad.js
 /.cache/
+
+# config
+/problems/config/config.js

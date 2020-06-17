@@ -48,31 +48,30 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead class="bg-primary">
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
                     <th>Assign to</th>
-                    <th>Time</th>
                   </tr>
                   </thead>
                   <tbody>
                     <%  problem.map((problems) => { %>
                     <tr>
-                      
+                      <td><%= problems.id%></td>
                       <td><%= problems.name %></td>                   
                       <td><%= problems.staff_student_id%></td>
                       <td><%= problems.email%></td>  
                       <td><%= problems.phone%></td>  
                       <td><%= problems.issue%></td>
-                      <td><%= problems.time%></td>
                       <td>
                         <div class="row">
                       <!-- select -->
                       <div class="col-sm-9 mr-auto ml-auto">
                         
-                        <select class="form-control ">
+                        <select name="assigned_to" class="form-control ">
                           <option disabled selected>Select staff</option>
                           <%  staff.map((staff) => { %>
                           
@@ -103,13 +102,13 @@
                   </tbody>
                   <tfoot class="bg-primary">
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
                     <th>Assign to</th>
-                    <th>Time</th>
                   </tr>
                   </tfoot>
                 </table>

@@ -187,7 +187,7 @@ router.get('/completed2',isAuthenticated, async function(req, res, next) {
 router.get('/issues2',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  var staff = await db.query("SELECT * FROM staff ");
+  var staff = await db.query("SELECT * FROM staff WHERE priority=1");
   //var completed = 1;
   var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
   res.render('priorityTwo/issues', { 
@@ -297,9 +297,11 @@ router.get('/delete/:id',isAuthenticated, async function(req,res,next){
 
 router.get('/assign/:id',isAuthenticated, async function(req,res,next){
   var id = req.params.id;
+  var assign=req.body.assigned_to;
+  var data =[assign,id]
   //var status = req.query.status;
 
-    var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
+    var assign = await db.query("UPDATE problems SET assigned_to = ?  where id = ?",data); 
     res.redirect('/issues2');
 });
 
