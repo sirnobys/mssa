@@ -71,14 +71,14 @@
                       <!-- select -->
                       <div class="col-sm-9 mr-auto ml-auto">
                         
-                        <select name="assigned_to" class="form-control ">
+                        <!-- <select name="assigned_to" class="form-control ">
                           <option disabled selected>Select staff</option>
                           <%  staff.map((staff) => { %>
                           
                           <option><%=staff.name%></option>
                           <% }) %>
                           
-                        </select>
+                        </select> -->
                      
                       </div>
 
@@ -86,8 +86,8 @@
                       <div class="mr-auto ml-auto">
 
                     
-                      <a href="/assign/<%= problems.id %>"><button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat swalDefaultSuccess"><i class="fa fa-arrow-circle-right"  aria-hidden="true"></i></button></a>
-                    
+                      <a href="/edit_issues?id=<%= problems.id %>"><button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat swalDefaultSuccess"><i class="fa fa-arrow-circle-right"  aria-hidden="true"></i></button></a>
+                      
 
                       </div>
 

@@ -295,14 +295,35 @@ router.get('/delete/:id',isAuthenticated, async function(req,res,next){
     res.redirect('/completed2');
 });
 
-router.get('/assign/:id',isAuthenticated, async function(req,res,next){
-  var id = req.params.id;
-  var assign=req.body.assigned_to;
+router.get('/form',isAuthenticated, function(req, res, next) {
+  res.render('priorityTwo/form', { title: 'Express' });
+});
+
+router.get('/edit_issues', function(req,res,next){
+  var id = req.query.id;
+  var name = req.params.name;
+  var assign=req.body.assigned;
   var data =[assign,id]
   //var status = req.query.status;
+  console.log(name);
 
-    var assign = await db.query("UPDATE problems SET assigned_to = ?  where id = ?",data); 
-    res.redirect('/issues2');
+    db.query("SELECT * from problems where id = ?",id,function(err,rs){
+      res.render('priorityTwo/form',{
+        details:rs[0],
+      });
+    }); 
+    
+});
+
+router.post('/edit_issues',function(req,res,next){
+  //query to insert form values 
+  var param = [
+    req.body, //data for update
+    req.query.id //condition for update
+  ];
+  db.query('UPDATE problems SET ? where id = ?',param,function(err,rs){
+    res.redirect('/issues2')
+  });
 });
 
 router.get('/complete/:id',isAuthenticated, async function(req,res,next){
@@ -312,6 +333,7 @@ router.get('/complete/:id',isAuthenticated, async function(req,res,next){
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
     res.redirect('/issues1');
 });
+
 
 
 router.get('/success',isAuthenticated, function(req, res, next) {
