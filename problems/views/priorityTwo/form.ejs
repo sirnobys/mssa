@@ -1,9 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include partials/head.ejs-%>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<div class="wrapper">
+  <!-- Navbar -->
+  <%-include partials/navbar.ejs-%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include partials/sidebar.ejs-%>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+     <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item "><a href="/dashboard2">Home</a></li>
+              <li class="breadcrumb-item"><a href="/assigned2">Assigned Issues</a></li>
+              <li class="breadcrumb-item active">Completed</li>
+              <li class="breadcrumb-item "><a href="/issues2">New Issues</a></li>
+            </ol>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+           <section class="content">
+      <div class="container-fluid">
+        <div class="">
+   
+
 <form method="POST">
-    <div>Name<input  name="name" value="<%= details.name%>" ></div>
-    <div><input  name="id" value="<%= details.id%>"></div>
-    <div>Email<input name="email" value="<%= details.email%>"></div>
-    <div>Phone<input  name="phone" value="<%= details.phone%>"></div>
-    <div>Problem<input name="issue" value="<%= details.issue%>"></div>
+    <div>Name<input  name="name" value="<%= details.name%>" readonly></div>
+    <div><input  name="id" value="<%= details.id%>" readonly></div>
+    <div>Email<input name="email" value="<%= details.email%>" readonly></div>
+    <div>Phone<input  name="phone" value="<%= details.phone%>" readonly></div>
+    <div>Problem<input name="issue" value="<%= details.issue%>" readonly></div>
     <div>Assigned To<input  name="assigned_to" value="<%= details.assigned_to%>"></div>
     <button>save</button>
     <input type="hidden" name="" value="<%= details.id%>">
@@ -11,3 +51,26 @@
 
 
 </form>
+  <!-- /.card -->
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+
+<!-- /.container-fluid -->
+</section>
+</div>
+<!-- /.content-wrapper -->
+
+
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<%-include partials/footer.ejs-%>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include partials/scripts.ejs-%>
+</body>
+</html>

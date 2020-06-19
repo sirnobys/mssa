@@ -306,10 +306,12 @@ router.get('/edit_issues', function(req,res,next){
   var data =[assign,id]
   //var status = req.query.status;
   console.log(name);
+  var sql= ("SELECT * FROM staff");
 
     db.query("SELECT * from problems where id = ?",id,function(err,rs){
       res.render('priorityTwo/form',{
         details:rs[0],
+        staff:sql[0]
       });
     }); 
     
