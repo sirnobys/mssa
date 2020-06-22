@@ -11,8 +11,12 @@ var isAuthenticated = (req,res,next)=>{
 }
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('complaint', { title: 'Express' });
+router.get('/',async function(req, res, next) {
+  //var cat = issue_category;
+  var category =await db.query("SELECT * FROM issue_category");
+  res.render('complaint', { title: 'Express' ,
+ cats:category
+});
 });
 
 router.get('/admin', function(req, res, next) {
@@ -249,9 +253,20 @@ router.post('/insert', function(req, res, next) {
   var phone = req.body.phone;
   var email = req.body.email;
   var issue = req.body.problem;
-  var data= [name,staff_student_id,email,phone,issue];
-  let sql = db.query("INSERT INTO problems (name,staff_student_id,email,phone,issue) VALUES(?,?,?,?,?)",data)
-  res.redirect('/success');
+  var category = req.body.category;
+  var data= [name,staff_student_id,email,phone,issue,category];
+  
+   db.query("INSERT INTO problems (name,staff_student_id,email,phone,issue,issue_category) VALUES(?,?,?,?,?,?)",data,function(err,rs){
+    if (err){
+      console.log(err);
+      res.redirect('/');
+    }
+    else{
+      res.redirect('/success',);
+    }
+   
+   })
+  
 });
 
 //get add_staff page
@@ -357,7 +372,7 @@ router.get('/complete/:id',isAuthenticated, async function(req,res,next){
 
 
 
-router.get('/success',isAuthenticated, function(req, res, next) {
+router.get('/success', function(req, res, next) {
   res.render('success', { title: 'Express' });
 });
 
