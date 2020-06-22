@@ -51,45 +51,45 @@
 
             <div class="card">
              <div class="card-header bg-dark">
-                <h3 class="card-title">All Issues</h3>
+                <h3 class="card-title ">All Issues</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                  <thead class="bg-dark">
                   <tr>
+                    <th>Request ID</th>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
-                    <th>Time</th>
                   </tr>
                   </thead>
                   <tbody>
                     <%  problem.map((problems) => { %>
                       <tr>
-                       
+                        <td><%= problems.id%></td>
                         <td><%= problems.name %></td>                   
                         <td><%= problems.staff_student_id%></td>
                         <td><%= problems.email%></td>  
                         <td><%= problems.phone%></td>  
                         <td><%= problems.issue%></td>
-                        <td><%= problems.time%></td>                                                                                    
+                                                                                                            
                       
                       </tr>
                       <% }) %>
                     
   
                   </tbody>
-                  <tfoot>
+                  <tfoot class="bg-dark">
                   <tr>
+                    <th>Request ID</th>
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
-                    <th>Time</th>
                   </tr>
                   </tfoot>
                 </table>
