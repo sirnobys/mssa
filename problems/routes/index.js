@@ -317,6 +317,25 @@ router.get('/edit_issues', function(req,res,next){
     
 });
 
+
+router.get('/view_issues', function(req,res,next){
+  var id = req.query.id;
+  var name = req.params.name;
+  var assign=req.body.assigned;
+  var data =[assign,id]
+  //var status = req.query.status;
+  console.log(name);
+  var sql= ("SELECT * FROM staff");
+
+    db.query("SELECT * from problems where id = ?",id,function(err,rs){
+      res.render('priorityTwo/view',{
+        details:rs[0],
+        staff:sql[0]
+      });
+    }); 
+    
+});
+
 router.post('/edit_issues',function(req,res,next){
   //query to insert form values 
   var param = [
