@@ -292,15 +292,26 @@ router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
   //var staff_student_id = req.body.staff_student_id;
   var phone = req.body.phone;
   var email = req.body.email;
-  var priority = req.body.priority
-  var data= [name,email,phone,priority];
-  let sql = db.query("INSERT INTO staff (name,email,phone,password,priority) VALUES(?,?,?,?,?)",data)
+  var priority = req.body.priority;
+  var password = req.body.priority;
+  var data= [name,email,phone,priority,password];
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  db.query("INSERT INTO staff (name,email,priority,password) VALUES(?,?,?,?)",data,function(err,rs){
+    if (err){
+      console.log(err);
+      res.redirect('/add_staff');
+    }
+    else{
+      res.redirect('/staff_success');
+    }
+   
+   });
+  });
+  
   //var staff = await db.query("SELECT * FROM staff ");
   //var completed = 1;
   //var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
-  res.redirect('/staff_success');
-});
+  
 
 router.get('/delete/:id',isAuthenticated, async function(req,res,next){
   var id = req.params.id;
