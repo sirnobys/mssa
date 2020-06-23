@@ -62,7 +62,7 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                          <label for="phone">Phone</label>
-                         <input type="number" name="phone" class="form-control" id="" placeholder="Enter phone">
+                         <input type="number"  name="phone" class="form-control" placeholder="Enter phone">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="priority">Priority Level</label>
@@ -152,7 +152,14 @@
 
                else 
     $('#message').html('Not Matching').css('color', 'red');
-}});
+}
+
+
+               else 
+    $('#message').html('enter confirm password').css('color', 'red');
+
+});
+
 
 
 </script>
@@ -176,6 +183,7 @@
           phone: {
             required: true,
             // minlength: 10
+            maxlength:10
           },
     
            password: {
