@@ -66,12 +66,19 @@
                       <td><%= problems.phone%></td>  
                       <td><%= problems.issue%></td>                                                                                 
                       <td>
-                           <div class="mr-auto ml-auto">
+                           <div class="text-center">
 
-                    
-                      <a href="/complete/<%= problems.id %>"><button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat">
+                      
+                      <a ><button type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
+                     <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Acknowledge"></i></button>
+                     </a>
+
+
+                      <a href="/complete/<%= problems.id %>"><button type="button" class=" my-1 btn  btn-outline-success btn-flat mr-auto ml-auto" data-toggle="tooltip" data-placement="top" title="Complete">
                         <i class="fas fa-check"></i>
-                      </button></a>
+                      </button>
+                      </a>
+
                     
 
                       </div>
