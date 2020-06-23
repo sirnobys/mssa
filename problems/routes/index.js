@@ -23,8 +23,13 @@ router.get('/admin', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
-router.get('/staff_success', function(req, res, next) {
-  res.render('priorityTwo/staff_success', { title: 'Express' });
+router.get('/staff_success',isAuthenticated,async function(req, res, next) {
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  res.render('priorityTwo/staff_success', {
+   title: 'Express',
+   account:users
+    });
 });
 
 //route to check if user exists in database, if not go back to login page
@@ -296,7 +301,7 @@ router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
   var password = req.body.priority;
   var data= [name,email,phone,priority,password];
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  db.query("INSERT INTO staff (name,email,priority,password) VALUES(?,?,?,?)",data,function(err,rs){
+  db.query("INSERT INTO staff (name,email,phone ,priority,password) VALUES(?,?,?,?,?)",data,function(err,rs){
     if (err){
       console.log(err);
       res.redirect('/add_staff');
@@ -325,30 +330,33 @@ router.get('/form',isAuthenticated, function(req, res, next) {
   res.render('priorityTwo/form', { title: 'Express' });
 });
 
-router.get('/edit_issues', function(req,res,next){
+router.get('/edit_issues',isAuthenticated,async function(req,res,next){
   var id = req.query.id;
-  var name = req.params.name;
+  //var name = req.params.name;
   var assign=req.body.assigned;
-  var data =[assign,id]
+  var data =[assign,id];
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
-  console.log(name);
-  var sql= ("SELECT * FROM staff");
-
-    db.query("SELECT * from problems where id = ?",id,function(err,rs){
-      res.render('priorityTwo/form',{
+  //name);
+   var sql= await db.query("SELECT * FROM staff");
+   var rs = await db.query("SELECT * from problems where id = ?",id);
+   res.render('priorityTwo/form',{
         details:rs[0],
-        staff:sql[0]
-      });
-    }); 
+        staff: sql.length > 0 ? sql : null,
+        account:users
+   });
     
 });
 
 
-router.get('/view_issues', function(req,res,next){
+router.get('/view_issues',isAuthenticated,async function(req,res,next){
   var id = req.query.id;
   var name = req.params.name;
   var assign=req.body.assigned;
-  var data =[assign,id]
+  var data =[assign,id];
+  var username = req.session.user.name;
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
   console.log(name);
   var sql= ("SELECT * FROM staff");
@@ -356,13 +364,14 @@ router.get('/view_issues', function(req,res,next){
     db.query("SELECT * from problems where id = ?",id,function(err,rs){
       res.render('priorityTwo/view',{
         details:rs[0],
-        staff:sql[0]
+        staff:sql[0],
+        account:users
       });
     }); 
     
 });
 
-router.post('/edit_issues',function(req,res,next){
+router.post('/edit_issues',isAuthenticated, function(req,res,next){
   //query to insert form values 
   var param = [
     req.body, //data for update

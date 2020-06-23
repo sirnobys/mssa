@@ -82,11 +82,20 @@
                          <label for="phone">Phone</label>
                          <input type="number" name="phone" value="<%= details.phone%>" readonly class="form-control" id="" placeholder="Enter phone">
                       </div>
-                      <div class="form-group col-md-6">
+                       <div class="form-group col-md-6">
+                        <label for="priority">Assign To</label>
                         
-                         <label for="assigned_to">Assigned To</label>
-                         <input type="text" name="assigned_to" value="<%= details.assigned_to%>" readonly class="form-control" id="" placeholder="assigned to">
-                      </div>
+                        <select class="form-control" name="category">
+                        
+                          <option disabled selected >Select Category</option>
+                          <% 
+                               if(staff && staff.length > 0){
+                              staff.map((row) => { %>
+                          
+                          <option><%=row.name%></option>
+                          <% }) } %>
+                        </select>
+                     </div>
                      </div>
   
                     
