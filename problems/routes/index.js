@@ -397,12 +397,26 @@ router.get('/success', function(req, res, next) {
   res.render('success', { title: 'Express' });
 });
 
+
+
+
 router.get('/request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM staff");
    //query to select staff from table
-  res.render('priorityTwo/send_request', {
+  res.render('send_request', {
+   title: 'Express' ,
+   account:users,
+   staff:sql.length > 0 ? sql : null,});
+});
+
+router.get('/view_request2',isAuthenticated,async function(req, res, next) {
+   var username = req.session.user.name;
+   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   var sql= await db.query("SELECT * FROM staff");
+   //query to select staff from table
+  res.render('view_request', {
    title: 'Express' ,
    account:users,
    staff:sql.length > 0 ? sql : null,});
