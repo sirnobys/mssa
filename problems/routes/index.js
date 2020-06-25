@@ -10,6 +10,30 @@ var isAuthenticated = (req,res,next)=>{
   next()
 }
 
+//function to restrict users to only priority 2 files
+// var admin = (arg)=>{
+//   var whitelist = arg;
+//   if (!whitelist.includes(req.session.user.priority==2)){
+//     res.redirect('/dashboard2')
+//   }
+// };
+
+// //function to restrict users to only priority 1 files
+// var normal = (arg)=>{
+//   var whitelist = arg;
+//   if (!whitelist.includes(req.session.user.priority==1)){
+//     res.redirect('/dashboard1')
+//   }
+// };
+
+// //function to restrict users to only priority 3 files
+// var boss = (arg)=>{
+//   var whitelist = arg;
+//   if (!whitelist.includes(req.session.user.priority==3)){
+//     res.redirect('/dashboard3')
+//   }
+// };
+
 /* GET home page. */
 router.get('/',async function(req, res, next) {
   //var cat = issue_category;
@@ -102,7 +126,7 @@ router.get('/dashboard2',isAuthenticated,async function(req, res, next) {
   var complete = 1;
 var completed = await db.query("SELECT COUNT(*) as complete FROM problems where completed =?",complete);
 var assigned = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to IS NOT NULL ");
-  var problems = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL");
+  var problems = await db.query("SELECT * FROM problems ");
   res.render('priorityTwo/dashboard', { 
     title: 'Express',
     account:users,

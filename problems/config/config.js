@@ -4,10 +4,10 @@ const pool = mysql.createPool({
   //connectionLimit: 10,
   host     : '127.0.0.1',
 	user     : 'root',
-	password : '',
+	password : '@Exiled21',
 	database : 'mssa'
 })
-// var connection = mysql.createConnection({
+// var connection = mysql.createConnection({s
 // 	host     : 'localhost',
 // 	user     : 'root',
 // 	password : '@Exiled21',
