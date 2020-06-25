@@ -14,11 +14,14 @@
       </div>
       <div class="info">
        
-          <%  account.map((accounts) => { %>
-            <a href="#" class="d-block" value="<%= account.name%>">
-            <%= accounts.name%>
-          </a>
-            <% }) %>
+          
+       
+        <%  account.map((accounts) => { %>
+          <a href="#" class="d-block" value="<%= account.name%>">
+          <%= accounts.name%>
+        </a>
+          <% }) %>
+       
          
       </div>
     </div>
@@ -125,8 +128,37 @@
         </a>
    </li>
     
-        
-       <br>
+       <div class="user-panel pb-3 mb-3 ">  </div>
+      
+
+    <li class="nav-item has-treeview menu-open">
+          <a href="#" class="nav-link " style="background-color:#dc3545">
+            <i class="nav-icon fas fa-building"></i>
+            <p>
+              MIS SECTION
+            </p>
+          </a>
+         
+        </li>
+       <li class="nav-item">
+         <a  href="/request2" class="nav-link">
+               <i class="nav-icon text-info  fas fa-share-square"></i>
+              <p>
+                Send Request
+              </p>
+            </a>
+   </li>
+   <li class="nav-item">
+         <a  href="" class="nav-link">
+               <i class="nav-icon text-warning far fa-eye"></i>
+              <p>
+                View Requests
+              </p>
+            </a>
+   </li>
+
+       <div class="user-panel pb-3 mb-3 ">  </div>
+
         <li class="nav-item">
               <a href="/logout" class="nav-link">
                 <i class="fas fa-sign-out-alt text-danger nav-icon"></i>
