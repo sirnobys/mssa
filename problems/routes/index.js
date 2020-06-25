@@ -395,6 +395,7 @@ router.get('/view_issues',isAuthenticated,async function(req,res,next){
     
 });
 
+
 router.post('/edit_issues',isAuthenticated, function(req,res,next){
   //query to insert form values 
   var param = [
@@ -420,6 +421,16 @@ router.get('/success', function(req, res, next) {
   res.render('success', { title: 'Express' });
 });
 
+router.get('/request2',isAuthenticated,async function(req, res, next) {
+   var username = req.session.user.name;
+   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   var sql= await db.query("SELECT * FROM staff");
+   //query to select staff from table
+  res.render('priorityTwo/send_request', {
+   title: 'Express' ,
+   account:users,
+   staff:sql.length > 0 ? sql : null,});
+});
 
 //route to logout and terminate a user session
 router.get('/logout', function(req, res, next) {
