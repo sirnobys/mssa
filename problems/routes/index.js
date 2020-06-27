@@ -454,25 +454,39 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
    var message = req.body.message;
    var data= [staff, username, message];
    var users = await db.query("Insert into mis_requests (sent_to, sent_by, message) VALUES (?,?,?)  ",data);
-   var sql= await db.query("SELECT * FROM staff");
+   //var sql= await db.query("SELECT * FROM staff");
    //query to select staff from table
   res.render('success', {
    title: 'Express' ,
    account:users,
-   staff:sql.length > 0 ? sql : null,});
+   //staff:sql.length > 0 ? sql : null,
+  });
 });
 
 
 router.get('/view_request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-   var sql= await db.query("SELECT * FROM mis_requests ORDER BY ID DESC LIMIT 10");
+   var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    //query to select staff from table
   res.render('view_request', {
    title: 'Express' ,
    account:users,
    view:sql.length > 0 ? sql : null,});
 });
+
+//route to  change message status
+router.get('/status/:id',isAuthenticated, async function(req,res,next){
+  var id = req.params.id;
+  var status = req.query.status;
+
+  if(status == '0'){
+    var seen = await db.query("UPDATE mis_requests SET seen_status = 1 where id = ?",id); 
+  }else if(status=='1'){
+    var del = await db.query("UPDATE mis_requests SET delete_status ='1' where id = ?",id); 
+  }
+  res.redirect('back');
+})
 
 //route to logout and terminate a user session
 router.get('/logout', function(req, res, next) {
