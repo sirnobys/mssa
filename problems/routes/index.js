@@ -455,7 +455,7 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
 router.get('/view_request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-   var sql= await db.query("SELECT * FROM mis_requests ORDER BY ID DESC");
+   var sql= await db.query("SELECT * FROM mis_requests ORDER BY ID DESC LIMIT 10");
    //query to select staff from table
   res.render('view_request', {
    title: 'Express' ,
