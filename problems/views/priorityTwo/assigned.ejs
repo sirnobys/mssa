@@ -56,6 +56,7 @@
                     <th>Phone</th>
                     <th>Issue</th>
                     <th>Assigned to</th>
+                    <th>Acknowledgment</th>
                     <!-- <th>Edit</th> -->
                   </tr>
                   </thead>
@@ -70,6 +71,18 @@
                         <td><%= problems.phone%></td>  
                         <td><%= problems.issue%></td> 
                         <td><%= problems.assigned_to%></td> 
+                        <td><% if(problems.acknowledged == null){ %>
+                          <div align="center">
+                            <span class="badge badge-danger">Negative</span>
+                          </div>
+                          
+                          <% } else{ %>  
+                          <div align="center">
+                            <span class="badge badge-success">Positive</span>
+                          </div>
+                          <% } %>
+
+                        </td> 
 
 
 
@@ -90,6 +103,7 @@
                     <th>Phone</th>
                     <th>Issue</th>
                     <th>Assigned to</th>
+                    <th>Acknowledgment</th>
                   </tr>
                   </tfoot>
                 </table>

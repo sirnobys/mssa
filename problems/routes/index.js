@@ -152,11 +152,12 @@ router.get('/dashboard1',isAuthenticated, async function(req, res, next) {
 
 
 //get assigned1 page
+//where the issues have been acknowledged
 router.get('/assigned1',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
-  var problems = await db.query("SELECT * FROM problems where assigned_to=?",username)
+  var problems = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged=1 and completed=0",username)
   res.render('priorityOne/assigned', { 
     title: 'Express',
   account:users ,
@@ -177,13 +178,14 @@ router.get('/completed1',isAuthenticated, async function(req, res, next) {
   });
 });
 
-//get issues3 page
+//get issues1 page
+//where no issue is acknowledged yet nor completed.
 router.get('/issues1',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var data=[username];
-  var problems = await db.query("SELECT * FROM problems where assigned_to=? and completed is NULL",data);
+  var problems = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",data);
   res.render('priorityOne/issues', { 
     title: 'Express',
   account:users ,
@@ -197,7 +199,7 @@ router.get('/assigned2',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
-  var problems = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL")
+  var problems = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL and completed=0")
   res.render('priorityTwo/assigned', {
      title: 'Express',
     account:users,
@@ -413,6 +415,15 @@ router.get('/complete/:id',isAuthenticated, async function(req,res,next){
 
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
     res.redirect('/issues1');
+});
+
+// Aknowledgment
+router.get('/acknowledge/:id',isAuthenticated, async function(req,res,next){
+  var id = req.params.id;
+  //var status = req.query.status;
+
+    var assign = await db.query("UPDATE problems SET acknowledged = 1 where id = ?",id); 
+    res.redirect('/assigned1');
 });
 
 
