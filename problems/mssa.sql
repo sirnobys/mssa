@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 22, 2020 at 01:04 PM
+-- Generation Time: Jun 27, 2020 at 10:46 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -58,6 +58,40 @@ INSERT INTO `issue_category` (`id`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mis_requests`
+--
+
+DROP TABLE IF EXISTS `mis_requests`;
+CREATE TABLE IF NOT EXISTS `mis_requests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sent_to` varchar(45) DEFAULT NULL,
+  `sent_by` varchar(45) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `seen_status` int(11) NOT NULL DEFAULT 0,
+  `delete_status` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mis_requests`
+--
+
+INSERT INTO `mis_requests` (`id`, `sent_to`, `sent_by`, `message`, `seen_status`, `delete_status`) VALUES
+(1, 'kojo', 'kofi', 'ataa adwoa', 0, 0),
+(2, 'Unique', 'kobby', 'Im Hungry', 0, 0),
+(3, 'Unique', 'kobby', 'I need a break', 0, 0),
+(4, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
+(5, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
+(6, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
+(7, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
+(8, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
+(9, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
+(10, 'kojo', 'kobby', 'heyaaaa', 0, 0),
+(11, 'Kujo', 'kobby', 'finally', 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `problems`
 --
 
@@ -73,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `problems` (
   `issue_category` tinytext DEFAULT NULL,
   `completed` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `problems`
@@ -90,9 +124,9 @@ INSERT INTO `problems` (`id`, `name`, `staff_student_id`, `email`, `phone`, `iss
 (8, 'sammy', '133489652', 'sammy@mis.dev', '9234743', 'staff portal issue', 'kobby', NULL, NULL),
 (9, 'tuga', '445489652', 'tuga@mis.dev', '9233443', 'staff portal issue', 'kobby', NULL, NULL),
 (10, 'barf', '445589652', 'barf@mis.dev', '9236443', 'staff portal issue', 'kobby', NULL, NULL),
-(11, 'barb', '555589652', 'barb@mis.dev', '9456443', 'staff portal issue', 'kobby', NULL, NULL),
+(11, 'barb', '555589652', 'barb@mis.dev', '9456443', 'staff portal issue', 'kobby', NULL, 1),
 (12, 'barbera', '244589652', 'barbera@mis.dev', '11156443', 'staff portal issue', 'kobby', NULL, NULL),
-(13, 'barber', '566589652', 'barber@mis.dev', '11144443', 'staff portal issue', 'kobby', NULL, NULL),
+(13, 'barber', '566589652', 'barber@mis.dev', '11144443', 'staff portal issue', 'kobby', NULL, 1),
 (14, 'barbe', '666589652', 'barbe@mis.dev', '11166643', 'staff portal issue', 'kobby', NULL, 1),
 (15, 'kwadwo', '33389652', 'kwadwo@mis.dev', '1123343', 'staff portal issue', 'kobby', NULL, 1),
 (16, 'kwad', '33383452', 'kwad@mis.dev', '1123343', 'staff portal issue', 'kobby', NULL, 1),
@@ -124,7 +158,8 @@ INSERT INTO `problems` (`id`, `name`, `staff_student_id`, `email`, `phone`, `iss
 (44, 'mana', '987875673', 'mana@mis.dev', '34868675', 'staff portal issue', 'kojo', NULL, 1),
 (45, 'mana', '987875673', 'mana@mis.dev', '34868675', 'staff portal issue', 'kojo', NULL, 1),
 (46, 'Unique', '000000', 'unique@gmail.com', '0000000', 'More unique', NULL, NULL, NULL),
-(47, 'JAmes', '7798', 'ertyghjkl', '99', '67890', NULL, NULL, NULL);
+(47, 'JAmes', '7798', 'ertyghjkl', '99', '67890', NULL, NULL, NULL),
+(50, 'Mike', '1223344', 'duodu@g.com', '098737', 'well  well well', NULL, 'student portal', NULL);
 
 -- --------------------------------------------------------
 
@@ -137,19 +172,22 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `phone` varchar(10) DEFAULT NULL,
   `password` varchar(100) NOT NULL,
   `priority` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`id`, `name`, `email`, `password`, `priority`) VALUES
-(0, 'kojo', 'kojo@mis.dev', '12345', 1),
-(1, 'kobby', 'kobby@mis.dev', '12345', 2),
-(2, 'mike', 'mike@mis.dev', '12345', 3);
+INSERT INTO `staff` (`id`, `name`, `email`, `phone`, `password`, `priority`) VALUES
+(0, 'kojo', 'kojo@mis.dev', NULL, '12345', 1),
+(1, 'kobby', 'kobby@mis.dev', NULL, '12345', 2),
+(2, 'mike', 'mike@mis.dev', NULL, '12345', 3),
+(3, 'Unique', 'unique@gmail.com', NULL, '2', 2),
+(4, 'Kujo', 'kujo@g.com', '1234567890', '2', 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
