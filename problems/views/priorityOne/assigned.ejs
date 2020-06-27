@@ -48,7 +48,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                  <thead class="bg-secondary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
@@ -68,12 +68,13 @@
                         <td><%= problems.phone%></td>  
                         <td><%= problems.issue%></td>
                         <td>
-                           <div class="mr-auto ml-auto">
+                           <div align="center">
 
                     
-                      <button type="button" class=" my-1 btn btn-block btn-outline-success btn-flat"> 
+                       <a href="/complete/<%= problems.id %>"><button onclick="return confirm('sure you want to set this as completed?');" type="button" class=" my-1 btn  btn-outline-success btn-block btn-flat mr-auto ml-auto" data-toggle="tooltip" data-placement="top" title="Complete">
                         <i class="fas fa-check"></i>
                       </button>
+                      </a>
                     
 
                       </div>
@@ -87,7 +88,7 @@
                   
             
                   </tbody>
-                  <tfoot>
+                  <tfoot class="bg-secondary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>

@@ -46,7 +46,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                  <thead class="bg-primary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
@@ -69,15 +69,15 @@
                            <div class="text-center">
 
                       
-                      <a ><button type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
+                      <a href="/acknowledge/<%= problems.id %>"><button onclick="return confirm('send acknowledgment?')" type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
                      <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Acknowledge"></i></button>
                      </a>
 
 
-                      <a href="/complete/<%= problems.id %>"><button type="button" class=" my-1 btn  btn-outline-success btn-flat mr-auto ml-auto" data-toggle="tooltip" data-placement="top" title="Complete">
+                     <!--  <a href="/complete/<%= problems.id %>"><button type="button" class=" my-1 btn  btn-outline-success btn-flat mr-auto ml-auto" data-toggle="tooltip" data-placement="top" title="Complete">
                         <i class="fas fa-check"></i>
                       </button>
-                      </a>
+                      </a> -->
 
                     
 
@@ -88,7 +88,7 @@
                   
                 
                   </tbody>
-                  <tfoot>
+                  <tfoot class="bg-primary">
                   <tr>
                     <th>Name</th>
                     <th>ID</th>
