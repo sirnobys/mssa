@@ -468,11 +468,14 @@ router.get('/view_request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
+   var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
    //query to select staff from table
   res.render('view_request', {
    title: 'Express' ,
    account:users,
-   view:sql.length > 0 ? sql : null,});
+   view:sql.length > 0 ? sql : null,
+   see:seen
+  });
 });
 
 //route to  change message status

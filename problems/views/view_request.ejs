@@ -106,10 +106,9 @@
               <!-- timeline item -->
               <div>
                 <% 
-                               if(view && view.length > 0){
-                              view.map((row) => { %>
-                               
-                                <%if(row.seen_status == 1 && row.sent_to !=null){ %>
+                               if(see && see.length > 0){
+                              see.map((row) => { %>
+                                                            
                                   <i class="fas fa-eye bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
@@ -120,11 +119,6 @@
                     <a class="btn btn-danger btn-sm">Delete</a>
                   </div>
                 </div>
-                                <%}else{%>
-                               
-                                  <i class="fas fa-eye bg-green"></i>
-                
-                                <%}%>
                 
                 <% }) } %>
               </div>
