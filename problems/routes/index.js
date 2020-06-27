@@ -400,6 +400,7 @@ router.get('/success', function(req, res, next) {
 
 
 
+
 router.get('/request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
@@ -411,15 +412,31 @@ router.get('/request2',isAuthenticated,async function(req, res, next) {
    staff:sql.length > 0 ? sql : null,});
 });
 
+
+router.post('/insert_message',isAuthenticated,async function(req, res, next) {
+   var username = req.session.user.name;
+   var staff = req.body.staff;
+   var message = req.body.message;
+   var data= [staff, username, message];
+   var users = await db.query("Insert into mis_requests (sent_to, sent_by, message) VALUES (?,?,?)  ",data);
+   var sql= await db.query("SELECT * FROM staff");
+   //query to select staff from table
+  res.render('success', {
+   title: 'Express' ,
+   account:users,
+   staff:sql.length > 0 ? sql : null,});
+});
+
+
 router.get('/view_request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-   var sql= await db.query("SELECT * FROM staff");
+   var sql= await db.query("SELECT * FROM mis_requests");
    //query to select staff from table
   res.render('view_request', {
    title: 'Express' ,
    account:users,
-   staff:sql.length > 0 ? sql : null,});
+   view:sql.length > 0 ? sql : null,});
 });
 
 //route to logout and terminate a user session
