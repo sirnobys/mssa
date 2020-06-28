@@ -73,7 +73,7 @@
                         <!-- <td><span class="card bg-success text-center">Completed</span></td> -->
 
                         <td class="bg-white text-center">
-                        <a href="/delete/<%= problems.id %>"><button type="button" class=" my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                        <a href="/delete/<%= problems.id %>"><button onclick="return confirm('sure you want to delete?')" type="button" class=" my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
                       </td>                                                                        
                       
                       </tr>

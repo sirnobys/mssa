@@ -452,8 +452,9 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var staff = req.body.staff;
    var message = req.body.message;
+   // var time =curdate(),curtime();
    var data= [staff, username, message];
-   var users = await db.query("Insert into mis_requests (sent_to, sent_by, message) VALUES (?,?,?)  ",data);
+   var users = await db.query("Insert into mis_requests (sent_to, sent_by, message,time,date) VALUES (?,?,?,curtime(),curdate())  ",data);
    //var sql= await db.query("SELECT * FROM staff");
    //query to select staff from table
   res.render('success', {

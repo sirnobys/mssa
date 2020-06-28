@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <%-include priorityTwo/partials/head.ejs-%>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+  <style type="text/css">
+     .bg1{
+   
+
+
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("./images/6.jpg"); /* The least supported option. */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+        
+      }
+  </style>
+<body class=" hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 <div class="wrapper">
   <!-- Navbar -->
   <%-include priorityTwo/partials/navbar.ejs-%>
@@ -25,7 +37,6 @@
               <li class="breadcrumb-item "><a href="/completed2">Completed</a></li>
               <li class="breadcrumb-item "><a href="/issues2">New Issues</a></li>
             </ol>
-            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -41,12 +52,8 @@
 
 
 
-<section class="content">
-      <div class="container-fluid">
-
-        
-             
-      </div>
+<section class="content bg1">
+      
 
         <!-- Timelime example  -->
         <div class="row">
@@ -66,18 +73,19 @@
               
                 <i class="fas fa-envelope bg-blue"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                  <h3 class="timeline-header"><a href="#">
+                  <span class="time"><i class="fas fa-clock text-info"></i> <%=row.time%></span>
+                  <h3 class="timeline-header">
                     <% if(row.seen_status == 0){ %>   
-                    <i class="fa fa-info-circle text-success"></i> </a><span class="small"> New Message</span> </h3>
+                    <a href="#"><i class="fa fa-info-circle text-success"></i> </a><span class="small"> New Message</span>
                      <% } else{ %>  
-                      <i class="fa fa-check-circle text-blue "></i> </a><span class="small"> Message Read</span> </h3>
+                      <a href="#"><i class="fa fa-check-circle  "></i> </a><span class="small"> Marked as read</span> 
                       <% } %>
+                    </h3>
                   <div class="timeline-body">
                    <div class="direct-chat-msg">
                     <div class="direct-chat-infos clearfix">
                       <span class="direct-chat-name float-left"><%=row.sent_by%></span>
-                      <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                      <span class="direct-chat-timestamp float-right text-success text-info"><%=row.date%></span>
                     </div>
                     <!-- /.direct-chat-infos -->
                     <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
@@ -91,37 +99,60 @@
                   <div class="timeline-footer">
                     <% if(row.seen_status == 0){ %>                            
                     <a class="btn btn-primary btn-sm" href="/status/<%=row.id%>?status=0">Seen</a>
-                    <a class="btn btn-danger btn-sm" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a>
+                    <!-- <a class="btn btn-danger btn-sm" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a> -->
                     <% } else{ %>  
                     <a class="btn btn-primary btn-sm disabled" ><i class="fa fa-eye"></i></a>
-                    <a class="btn btn-danger btn-sm"href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a>
                     <% } %>
                     
                   </div>
                 </div>
                 
               </div>
-               <% }) } %>
+               <% }) } else{%>
+              
+                   
+                <div class="content" >
+                  <div class="text-center">
+
+                  <div class="">
+                  <h2 class="text-success"><i style="font-size: 80px" class="fas fa-inbox text-success"></i></h2>
+                     <h6 class="text-success mt-3">requests go here </h6>
+                    
+                  <h2 style="font-size: 50px" class="text-dark"> No requests to display.</h2>
+
+          
+                  </div>
+                    
+                  <!-- /.error-content -->
+                </div>
+                  <!-- /.error-page -->
+                </div>
+
+              <% } %>
+
               <!-- END timeline item -->
               <!-- timeline item -->
-              <div>
-                <% 
+              <% 
                                if(see && see.length > 0){
                               see.map((row) => { %>
+              <div>
+                
                                                             
-                                  <i class="fas fa-eye bg-green"></i>
+                <i class="fas fa-eye bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
                   <h3 class="timeline-header no-border"><a href="#">
-                    <%row.sent_to%>
-                  </a> Has seen your message</h3>
+                    <%=row.sent_to%>
+                  </a> <span class="small">has read your message</span> </h3>
                   <div class="timeline-footer">
                     <a class="btn btn-danger btn-sm">Delete</a>
                   </div>
                 </div>
                 
-                <% }) } %>
+                
               </div>
+              <% }) } %>
               <!-- END timeline item -->
               <!-- timeline item -->
               
@@ -149,7 +180,7 @@
               </div>
               <!-- /.timeline-label -->
               <!-- timeline item -->
-              <div>
+              <!-- <div>
                 <i class="fa fa-camera bg-purple"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
@@ -162,7 +193,7 @@
                     <img src="https://placehold.it/150x100" alt="...">
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- END timeline item -->
               <!-- timeline item -->
               
@@ -174,19 +205,15 @@
           </div>
           <!-- /.col -->
         </div>
+      </section>
       </div>
       <!-- /.timeline -->
 
-    </section>
+    <!-- </section> -->
   <!-- /.card -->
 </div>
 <!-- /.col -->
-</div>
-<!-- /.row -->
 
-<!-- /.container-fluid -->
-</section>
-</div>
 <!-- /.content-wrapper -->
 
 
@@ -194,7 +221,7 @@
 
 <!-- Main Footer -->
 <%-include priorityTwo/partials/footer.ejs-%>
-</div>
+
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
