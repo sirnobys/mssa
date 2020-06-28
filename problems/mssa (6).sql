@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 27, 2020 at 08:30 PM
+-- Generation Time: Jun 28, 2020 at 06:30 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -69,25 +69,30 @@ CREATE TABLE IF NOT EXISTS `mis_requests` (
   `message` text DEFAULT NULL,
   `seen_status` int(11) NOT NULL DEFAULT 0,
   `delete_status` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(11) DEFAULT NULL,
+  `date` varchar(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mis_requests`
 --
 
-INSERT INTO `mis_requests` (`id`, `sent_to`, `sent_by`, `message`, `seen_status`, `delete_status`) VALUES
-(1, 'kojo', 'kofi', 'ataa adwoa', 0, 0),
-(2, 'Unique', 'kobby', 'Im Hungry', 0, 0),
-(3, 'Unique', 'kobby', 'I need a break', 0, 0),
-(4, 'Unique', 'kobby', 'heyyyaaa', 1, 0),
-(5, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
-(6, 'Unique', 'kobby', 'heyyyaaa', 1, 0),
-(7, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
-(8, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
-(9, 'Unique', 'kobby', 'heyyyaaa', 0, 0),
-(10, 'kojo', 'kobby', 'heyaaaa', 0, 0),
-(11, 'Kujo', 'kobby', 'finally', 0, 0);
+INSERT INTO `mis_requests` (`id`, `sent_to`, `sent_by`, `message`, `seen_status`, `delete_status`, `time`, `date`) VALUES
+(1, 'kojo', 'kofi', 'ataa adwoa', 0, 0, '12:2:28', '2020-06-24'),
+(2, 'kojo', 'kobby', 'Im Hungry', 0, 0, '8:00:00', '2020-06-23'),
+(3, 'kobby', 'kojo', 'I need a break', 0, 0, '9:00:00', '2020-06-22'),
+(4, 'Unique', 'kobby', 'heyyyaaa', 0, 0, '10:00:00', '2020-06-22'),
+(5, 'Unique', 'kobby', 'heyyyaaa', 0, 0, '11:00:00', '2020-06-25'),
+(6, 'Unique', 'kobby', 'heyyyaaa', 0, 0, '10:50:00', '2020-06-22'),
+(7, 'Unique', 'kobby', 'heyyyaaa', 0, 0, '10:00:00', '2020-06-21'),
+(8, 'Unique', 'kobby', 'heyyyaaa', 0, 0, '10:10:28', '2020-06-26'),
+(9, 'kujo', 'kobby', 'heyyyaaa', 0, 0, '12:32:28', '2020-06-20'),
+(10, 'kujo', 'kobby', 'heyaaaa', 0, 0, '7:00:00', '2020-06-28'),
+(11, 'Kujo', 'kobby', 'finally', 0, 0, '11:12:28', '2020-06-21'),
+(12, 'kojo', 'kobby', 'new', 0, 0, '10:12:28', '2020-06-28'),
+(13, 'kojo', 'kobby', 'kojjjjooooooo', 0, 0, '12:12:28', '2020-06-24'),
+(14, 'kojo', 'kobby', 'last one', 1, 0, '12:22:11', '2020-06-28');
 
 -- --------------------------------------------------------
 
@@ -188,8 +193,8 @@ INSERT INTO `staff` (`id`, `name`, `email`, `phone`, `password`, `priority`) VAL
 (0, 'kojo', 'kojo@mis.dev', NULL, '12345', 1),
 (1, 'kobby', 'kobby@mis.dev', NULL, '12345', 2),
 (2, 'mike', 'mike@mis.dev', NULL, '12345', 3),
-(3, 'Unique', 'unique@gmail.com', NULL, '2', 2),
-(4, 'Kujo', 'kujo@g.com', '1234567890', '2', 2);
+(3, 'Unique', 'unique@gmail.com', NULL, '12345', 2),
+(4, 'Kujo', 'kujo@g.com', '1234567890', '12345', 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
