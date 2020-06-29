@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var md5 = require('mysql');
 
 //calling database file to connect to database
 var db = require('../config/config');
@@ -324,7 +325,7 @@ router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
   var phone = req.body.phone;
   var email = req.body.email;
   var priority = req.body.priority;
-  var password = req.body.priority;
+  var password = req.body.password;
   var data= [name,email,phone,priority,password];
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   db.query("INSERT INTO staff (name,email,phone ,priority,password) VALUES(?,?,?,?,?)",data,function(err,rs){
