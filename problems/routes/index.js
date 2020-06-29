@@ -480,6 +480,31 @@ router.get('/view_request2',isAuthenticated,async function(req, res, next) {
   });
 });
 
+
+router.get('/reset_password',isAuthenticated,async function(req, res, next) {
+   var username = req.session.user.name;
+   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
+   var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
+   //query to select staff from table
+  res.render('reset', {
+   title: 'Express' ,
+   account:users,
+   view:sql.length > 0 ? sql : null,
+   see:seen
+  });
+});
+
+router.get('/forgot_password',async function(req, res, next) {
+  //var cat = issue_category;
+  var category =await db.query("SELECT * FROM issue_category");
+  res.render('forgot', { title: 'Express' ,
+ cats:category
+});
+});
+
+
+
 //route to  change message status
 router.get('/status/:id',isAuthenticated, async function(req,res,next){
   var id = req.params.id;
