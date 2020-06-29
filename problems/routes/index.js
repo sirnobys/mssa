@@ -212,32 +212,73 @@ router.get('/assigned',isAuthenticated, async function(req, res, next) {
 });
 
 //get completed1 page
-router.get('/completed1',isAuthenticated, async function(req, res, next) {
+router.get('/completed',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
+  var priority = req.session.user.priority;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   var completed = 1;
   var data=[completed,username];
-  var problems = await db.query("SELECT * FROM problems where completed =? AND assigned_to =?",data);
-  res.render('priorityOne/completed', {
-     title: 'Express' ,
-    account:users,
-    problem:problems
-  });
+  var problems1 = await db.query("SELECT * FROM problems where completed =? AND assigned_to =?",data);
+  var problems2 = await db.query("SELECT * FROM problems where completed =?",completed)
+  if(priority==1){
+    res.render('priorityOne/completed', {
+      title: 'Express' ,
+     account:users,
+     problem:problems1
+   });
+  }
+  else if(priority==2){
+    res.render('priorityTwo/completed', { 
+      title: 'Express',
+    account:users ,
+    problem:problems2});
+  }
+  else if(priority==3){
+  res.render('priorityThree/completed', { 
+    title: 'Express',
+  account:users ,
+  problem:problems2
+});
+  }
+  
 });
 
 //get issues1 page
 //where no issue is acknowledged yet nor completed.
-router.get('/issues1',isAuthenticated,async function(req, res, next) {
+router.get('/issues',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
+  var priority = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var data=[username];
-  var problems = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",data);
-  res.render('priorityOne/issues', { 
+  var staff = await db.query("SELECT * FROM staff WHERE priority=1");
+  var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",data);
+  var problems2 = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+
+  if (priority==1){
+    res.render('priorityOne/issues', { 
+      title: 'Express',
+    account:users ,
+    problem:problems1
+  });
+  }
+  else if(priority==2){
+   
+  res.render('priorityTwo/issues', { 
     title: 'Express',
   account:users ,
-  problem:problems
+  problem:problems2,
+  staff:staff
 });
+  }
+  else if(priority==3){
+    res.render('priorityThree/issues', { 
+      title: 'Express',
+    account:users ,
+    problem:problems2
+  });
+  }
+  
 });
 
 
@@ -253,32 +294,32 @@ router.get('/issues1',isAuthenticated,async function(req, res, next) {
 //   problem:problems });
 // }); 
 
-//get completed2 page
-router.get('/completed2',isAuthenticated, async function(req, res, next) {
-  var username = req.session.user.name;
-  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  var completed = 1;
-  var problems = await db.query("SELECT * FROM problems where completed =?",completed)
-  res.render('priorityTwo/completed', { 
-    title: 'Express',
-  account:users ,
-  problem:problems});
-});
+// //get completed2 page
+// router.get('/completed2',isAuthenticated, async function(req, res, next) {
+//   var username = req.session.user.name;
+//   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+//   var completed = 1;
+//   var problems = await db.query("SELECT * FROM problems where completed =?",completed)
+//   res.render('priorityTwo/completed', { 
+//     title: 'Express',
+//   account:users ,
+//   problem:problems});
+// });
 
-//get issues2 page
-router.get('/issues2',isAuthenticated,async function(req, res, next) {
-  var username = req.session.user.name;
-  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  var staff = await db.query("SELECT * FROM staff WHERE priority=1");
-  //var completed = 1;
-  var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
-  res.render('priorityTwo/issues', { 
-    title: 'Express',
-  account:users ,
-  problem:problems,
-  staff:staff
-});
-});
+// //get issues2 page
+// router.get('/issues2',isAuthenticated,async function(req, res, next) {
+//   var username = req.session.user.name;
+//   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+//   var staff = await db.query("SELECT * FROM staff WHERE priority=1");
+//   //var completed = 1;
+//   var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+//   res.render('priorityTwo/issues', { 
+//     title: 'Express',
+//   account:users ,
+//   problem:problems,
+//   staff:staff
+// });
+// });
 
 
 
@@ -296,31 +337,31 @@ router.get('/issues2',isAuthenticated,async function(req, res, next) {
 // });
 // });
 
-//get completed3 page
-router.get('/completed3',isAuthenticated,async function(req, res, next) {
-  var username = req.session.user.name;
-  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  var completed = 1;
-  var problems = await db.query("SELECT * FROM problems where completed =?",completed);
-  res.render('priorityThree/completed', { 
-    title: 'Express',
-  account:users ,
-  problem:problems
-});
-});
+// //get completed3 page
+// router.get('/completed3',isAuthenticated,async function(req, res, next) {
+//   var username = req.session.user.name;
+//   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+//   var completed = 1;
+//   var problems = await db.query("SELECT * FROM problems where completed =?",completed);
+//   res.render('priorityThree/completed', { 
+//     title: 'Express',
+//   account:users ,
+//   problem:problems
+// });
+// });
 
 //get issues3 page
-router.get('/issues3',isAuthenticated,async function(req, res, next) {
-  var username = req.session.user.name;
-  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var completed = 1;
-  var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
-  res.render('priorityThree/issues', { 
-    title: 'Express',
-  account:users ,
-  problem:problems
-});
-});
+// router.get('/issues3',isAuthenticated,async function(req, res, next) {
+//   var username = req.session.user.name;
+//   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+//   //var completed = 1;
+//   var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+//   res.render('priorityThree/issues', { 
+//     title: 'Express',
+//   account:users ,
+//   problem:problems
+// });
+// });
 
 
 
