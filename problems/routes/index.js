@@ -365,7 +365,7 @@ router.get('/issues',isAuthenticated,async function(req, res, next) {
 
 
 
-//get completed page
+//get complaint page
 router.post('/insert', function(req, res, next) {
   var name=req.body.name;
   var staff_student_id = req.body.staff_student_id;
@@ -426,6 +426,29 @@ router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
    
    });
   });
+
+  //update 
+  // router.post('/update_problem',isAuthenticated,async function(req, res, next) {
+  //   var username = req.session.user.name;
+  //   var name=req.body.name;
+  //   //var staff_student_id = req.body.staff_student_id;
+  //   var phone = req.body.phone;
+  //   var email = req.body.email;
+  //   var priority = req.body.priority;
+  //   var password = req.body.password;
+  //   var data= [name,email,phone,priority,password];
+  //   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  //   db.query("INSERT INTO staff (name,email,phone ,priority,password) VALUES(?,?,?,?,?)",data,function(err,rs){
+  //     if (err){
+  //       console.log(err);
+  //       res.redirect('/add_staff');
+  //     }
+  //     else{
+  //       res.redirect('/staff_success');
+  //     }
+     
+  //    });
+  //   });
   
   //var staff = await db.query("SELECT * FROM staff ");
   //var completed = 1;
@@ -437,18 +460,18 @@ router.get('/delete/:id',isAuthenticated, async function(req,res,next){
   //var status = req.query.status;
 
     var del = await db.query("DELETE FROM problems where id = ?",id); 
-    res.redirect('/completed2');
+    res.redirect('/completed');
 });
 
-router.get('/form',isAuthenticated, function(req, res, next) {
-  res.render('priorityTwo/form', { title: 'Express' });
-});
+// router.get('/form',isAuthenticated, function(req, res, next) {
+//   res.render('priorityTwo/form', { title: 'Express' });
+// });
 
 router.get('/edit_issues',isAuthenticated,async function(req,res,next){
   var id = req.query.id;
   //var name = req.params.name;
   var assign=req.body.assigned;
-  var data =[assign,id];
+  //var data =[assign,id];
   var username = req.session.user.name;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
@@ -493,7 +516,7 @@ router.post('/edit_issues',isAuthenticated, function(req,res,next){
     req.query.id //condition for update
   ];
   db.query('UPDATE problems SET ? where id = ?',param,function(err,rs){
-    res.redirect('/issues2')
+    res.redirect('/issues')
   });
 });
 
@@ -502,7 +525,7 @@ router.get('/complete/:id',isAuthenticated, async function(req,res,next){
   //var status = req.query.status;
 
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
-    res.redirect('/issues1');
+    res.redirect('/issues');
 });
 
 // Acknowledgment
@@ -511,7 +534,7 @@ router.get('/acknowledge/:id',isAuthenticated, async function(req,res,next){
   //var status = req.query.status;
 
     var assign = await db.query("UPDATE problems SET acknowledged = 1 where id = ?",id); 
-    res.redirect('/assigned1');
+    res.redirect('/assigned');
 });
 
 
