@@ -247,13 +247,13 @@ router.get('/completed',isAuthenticated, async function(req, res, next) {
 //where no issue is acknowledged yet nor completed.
 router.get('/issues',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
-  var priority = req.session.user.name;
+  var priority = req.session.user.priority;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var data=[username];
   var staff = await db.query("SELECT * FROM staff WHERE priority=1");
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",data);
-  var problems2 = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+  var problems2 = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL");
 
   if (priority==1){
     res.render('priorityOne/issues', { 
