@@ -58,6 +58,10 @@
                     <div class="form-row">
                       <div class="col-md-1"></div>
                       <div class="form-group col-md-12">
+                        <label for="name">ID</label>
+                        <input type="text" name="id" value="<%= details.id %>" readonly class="form-control" id="" placeholder="Enter name">
+                     </div>
+                      <div class="form-group col-md-12">
                          <label for="name">Name</label>
                          <input type="text" name="name" value="<%= details.sent_to %>" readonly class="form-control" id="" placeholder="Enter name">
                       </div>
@@ -75,7 +79,7 @@
                       </div>
                        <div class="form-group col-md-12">
                         <label for="problem">Message</label>
-                      <textarea class="form-control" rows="3"> <%= details.message%>  </textarea>
+                      <textarea class="form-control" rows="3" name="message"> <%= details.message%>  </textarea>
                      </div>
                        <!-- <div class="form-group col-md-6">
                         <label for="priority">Assign To</label>
