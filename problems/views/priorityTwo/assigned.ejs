@@ -49,7 +49,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead class="bg-secondary">
                   <tr>
-                    <th>Request ID</th>
+                    <!-- <th>Request ID</th> -->
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
@@ -57,6 +57,7 @@
                     <th>Issue</th>
                     <th>Assigned to</th>
                     <th>Acknowledgment</th>
+                    <th>Action</th>
                     <!-- <th>Edit</th> -->
                   </tr>
                   </thead>
@@ -64,7 +65,7 @@
          
                     <%  problem.map((problems) => { %>
                       <tr>
-                        <td><%= problems.id%></td>                   
+                        <!-- <td><%= problems.id%></td>                    -->
                         <td><%= problems.name %></td>                   
                         <td><%= problems.staff_student_id%></td>
                         <td><%= problems.email%></td>  
@@ -83,7 +84,13 @@
                           <% } %>
 
                         </td> 
-
+                        <td>
+                          <% if(problems.acknowledged == null){ %>
+                          <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-success btn-flat"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                           <% } else{ %>  
+                            <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <% } %>
+                        </td>
 
 
                        <!--  <td class="bg-white text-center">
@@ -96,7 +103,7 @@
                   </tbody>
                   <tfoot class="bg-secondary">
                   <tr>
-                    <th>Request ID</th>
+                    <!-- <th>Request ID</th> -->
                     <th>Name</th>
                     <th>ID</th>
                     <th>Email</th>
@@ -104,6 +111,7 @@
                     <th>Issue</th>
                     <th>Assigned to</th>
                     <th>Acknowledgment</th>
+                    <th>Action</th>
                   </tr>
                   </tfoot>
                 </table>

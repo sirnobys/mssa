@@ -511,6 +511,10 @@ router.post('/edit_request',isAuthenticated,async function(req,res,next){
   var id = req.query.id;
   //var name = req.params.name;
   var message=req.body.message;
+   var param = [
+    req.body, //data for update
+    req.query.id //condition for update
+  ];
   //var data =[assign,id];
 
   var username = req.session.user.name;
@@ -518,8 +522,9 @@ router.post('/edit_request',isAuthenticated,async function(req,res,next){
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
   //name);
+ // 'UPDATE problems SET ? where id = ?'
   var sql= await db.query("SELECT * FROM staff");
-  var rs = await db.query("UPDATE mis_requests SET message=? where id = ? and sent_by = ?",data);
+  await db.query("UPDATE mis_requests SET message=? where id = ? and sent_by = ?",data);
    res.redirect('back');
     
 });

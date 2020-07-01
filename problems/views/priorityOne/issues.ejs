@@ -53,7 +53,11 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Estimated Time</th>
+                    <th>Estimated Date</th>
                     <th>Action</th>
+                    
+
                   </tr>
                   </thead>
                   <tbody>
@@ -64,15 +68,21 @@
                       <td><%= problems.staff_student_id%></td>
                       <td><%= problems.email%></td>  
                       <td><%= problems.phone%></td>  
-                      <td><%= problems.issue%></td>                                                                                 
-                      <td>
-                           <div class="text-center">
+                      <td><%= problems.issue%></td>
 
+                      <form>
+                        
                       
-                      <a href="/acknowledge/<%= problems.id %>"><button onclick="return confirm('send acknowledgment?')" type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
-                     <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Acknowledge"></i></button>
+                      <td> <input type="time" required="" class="form-control" name=""></td>
+                      <td> <input type="date" required=""  class="form-control" name=""></td>                                                                                 
+                      <td>
+                     <div align="center">
+                        <a href="/acknowledge/<%= problems.id %>"><button onclick="return confirm('send acknowledgment?')" type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
+                       <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Acknowledge"></i></button>
                      </a>
-
+                     </div>
+                    </td> 
+                  </form>
 
                      <!--  <a href="/complete/<%= problems.id %>"><button type="button" class=" my-1 btn  btn-outline-success btn-flat mr-auto ml-auto" data-toggle="tooltip" data-placement="top" title="Complete">
                         <i class="fas fa-check"></i>
@@ -81,8 +91,8 @@
 
                     
 
-                      </div>
-                        </td>   
+                      
+                          
                     </tr>
                     <% }) %>
                   
@@ -95,6 +105,8 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
+                    <th>Estimated Time</th>
+                    <th>Estimated Date</th>
                     <th>Action</th>
                   </tr>
                   </tfoot>

@@ -109,6 +109,10 @@
                         <label for="problem">Problem</label>
                        <input name="issue" class="form-control" value="<%= details.issue%>" readonly>
                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="problem">Problem</label>
+                       <textarea class="form-control" name="note"></textarea>
+                     </div>
   
                     </div>
                   
@@ -153,6 +157,8 @@
 
 <!-- REQUIRED SCRIPTS -->
 <!-- <%-include partials/scripts.ejs-%> -->
+  <%-include partials/scripts.ejs-%>
+
 
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -161,7 +167,7 @@
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<!-- <script src="dist/js/adminlte.min.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 
@@ -185,6 +191,11 @@
             required: true,
             // minlength: 10
           },
+
+           note: {
+            required: true,
+            // minlength: 10
+          },
     
           // cpassword: {
           //   required: true,
@@ -202,6 +213,11 @@
     
           assigned_to: {
             required: "Please select a staff",
+            
+          },
+
+            note: {
+            required: "Please add a note",
             
           },
         
