@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include priorityTwo/partials/head.ejs-%>
+  <style type="text/css">
+     .bg1{
+   
+
+
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("./images/6.jpg"); /* The least supported option. */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+        
+      }
+  </style>
+<body class=" hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<div class="wrapper">
+  <!-- Navbar -->
+  <%-include priorityTwo/partials/navbar.ejs-%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include priorityTwo/partials/sidebar.ejs-%>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+     <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Your Messages</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item "><a href="/dashboard2">Home</a></li>
+              <li class="breadcrumb-item"><a href="/assigned2">Assigned Issues</a></li>
+              <li class="breadcrumb-item "><a href="/completed2">Completed</a></li>
+              <li class="breadcrumb-item "><a href="/issues2">New Issues</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+          
+   
+
+
+ 
+
+
+
+ <section class="content">
+      <div class="container-fluid">
+        <div class="">
+          
+            
+            <!-- /.card -->
+
+            <div class="card">
+              <div class="card-header bg-info">
+                <h3 class="card-title">View Requests</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead class="bg-info">
+                  <tr>
+                    <!-- <th>ID</th> -->
+                    <th>Sent to</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <%  view.map((row) => { %>
+                    <tr>
+                      <!-- <td><%= row.id%></td> -->
+                      <td><%= row.sent_to %></td>                   
+                      <td><%= row.message%></td>
+                      <td><%= row.time%></td>  
+                      <td><%= row.date%></td>  
+                      <td align="center">
+                         <% if(row.seen_status == 0){ %>  
+
+                          <span class="badge bg-danger">HAS NOT BEEN READ</span>
+
+                           <% } else{ %>  
+                        <span class="badge bg-success">HAS BEEN READ</span>
+                            <% } %>
+                      </td>
+                      <td>
+                       
+
+
+                      
+
+                      <div align="center" >
+                        
+                         <a class="btn btn-outline-success mx-2" href="/edit_request?id=<%=row.id %>" onclick="return confirm('Do you want to edit your request');" ><i class="fa fa-edit"></i>
+                         </a> 
+                     
+                       
+                      <a class="btn btn-outline-danger" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a>
+                      </div>
+                    
+
+                      
+
+                    </div>
+                      </td>   
+                                                                                                    
+                   
+                    </tr>
+                    <% }) %>
+                  
+                
+                  </tbody>
+                  <tfoot class="bg-info">
+                  <tr>
+                    <!-- <th>ID</th> -->
+                    <th>Sent to</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+     
+      <!-- /.container-fluid -->
+    </section>
+      </div>
+      <!-- /.timeline -->
+
+    <!-- </section> -->
+  <!-- /.card -->
+</div>
+<!-- /.col -->
+
+<!-- /.content-wrapper -->
+
+
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<%-include priorityTwo/partials/footer.ejs-%>
+
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include priorityTwo/partials/scripts.ejs-%>
+</body>
+</html>
+
+
+
+
+

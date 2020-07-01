@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <%-include partials/head.ejs-%>
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<%-include partials/style.ejs-%>
+<body class="bg1 hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 <div class="wrapper">
   <!-- Navbar -->
   <%-include partials/navbar.ejs-%>
@@ -10,23 +11,23 @@
   <!-- Main Sidebar Container -->
   <%-include partials/sidebar.ejs-%>
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class=" bg1 content-wrapper">
     <!-- Content Header (Page header) -->
-     <div class="content-header">
+     <div  class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Add Staff</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
+          <!-- <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Send Request</h1>
+          </div>< -->!-- /.col -->
+         <!--  <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item "><a href="/dashboard">Home</a></li>
-              <li class="breadcrumb-item"><a href="/assigned">Assigned Issues</a></li>
-              <li class="breadcrumb-item active">Completed</li>
-              <li class="breadcrumb-item "><a href="/issues">New Issues</a></li>
+              <li class="breadcrumb-item "><a href="/dashboard2" class="text-white">Home</a></li>
+              <li class="breadcrumb-item"><a href="/assigned2"class="text-white">Assigned Issues</a></li>
+              <li class="breadcrumb-item active"><a href="/completed2"class="text-white">Assigned Issues</a></li>
+              <li class="breadcrumb-item "><a href="/issues2"class="text-white">New Issues</a></li>
             </ol>
             </ol>
-          </div><!-- /.col -->
+          </div><!-- /.col --> -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -34,58 +35,46 @@
 
     <!-- Main content -->
            <section class="content">
-            <div class="container-fluid">
-            <div class="">
+            <div class="container row">
+              <div class="col-md-2"></div>
+            <div class="col-md-8">
           
             
             <!-- /.card -->
             <div class="card card-primary">
                 <div class="card-header bstyle card-title">
-                  <center>Add Staff</center>
+                  <center>Send Request</center>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form id="quickForm" action="/insert_staff" method="post">
+                <form id="quickForm" action="" method="post">
                   <div class="card-body">
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                         <label for="name">Name</label>
-                         <input type="text" name="name" class="form-control" id="" placeholder="Enter name">
-                      </div>
-                     <div class="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" id="" placeholder="Email">
-                     </div>
-  
-                    </div>
+                    
   
                     <div class="form-row">
-                      <div class="form-group col-md-6">
-                         <label for="phone">Phone</label>
-                         <input type="number"  name="phone" class="form-control" placeholder="Enter phone">
-                      </div>
-                      <div class="form-group col-md-6">
-                        <label for="priority">Priority Level</label>
-                        <select class="form-control" name="priority">
-                          <option disabled selected >Select level</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
+                      
+                      <div class="form-group col-md-12">
+                        <label for="staff">Select Staff</label>
+                       <select class="form-control" name="category">
+                        
+                          <option disabled selected >Select Staff</option>
+                          <% 
+                               if(staff && staff.length > 0){
+                              staff.map((row) => { %>
+                          
+                          <option><%=row.name%></option>
+                          <% }) } %>
                         </select>
                      </div>
   
-                    </div>
+                  
   
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                         <label for="name">Password</label>
-                         <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                  
+                      <div class="form-group col-md-12">
+                         <label for="request">Request</label>
+                         <textarea name="request" class="form-control"></textarea>
                       </div>
-                     <div class="form-group col-md-6">
-                        <label for="email">Confirm Password</label>
-                        <input type="password" name="cpassword" class="form-control" id="cpassword" placeholder="Confirm Password">
-                         <span id='message'></span>
-                     </div>
+                    
   
                     </div>
                    <!--  <div class="form-row">
@@ -105,8 +94,8 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                   <center><button type="submit"  class="btn btn-primary">      
-          <i class="ion ion-person-add"></i> Add Staff!</button></center> 
+                   <center><button type="submit" class="btn btn-primary">      
+                    <i class="fa fa-paper-plane"></i> Submit </button></center> 
                   </div>
                 </form>
               </div>
@@ -138,7 +127,7 @@
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
-<!-- <script src="dist/js/adminlte.min.js"></script> -->
+<script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <script type="text/javascript">
@@ -192,7 +181,7 @@
           },
     
     
-           name: {
+           request: {
             required: true,
             // minlength: 10
           },
@@ -203,7 +192,7 @@
           // },
     
     
-           priority: {
+           staff: {
             required: true,
             // minlength: 10
           },
@@ -229,13 +218,13 @@
             // equalTo:"Passwords do not match"
           },
     
-          priority: {
-            required: "Please select a priority level",
+          staff: {
+            required: "Please select a staff",
             
           },
     
-          phone: {
-            required: "Please provide your phone number",
+          request: {
+            required: "Please type in your message",
             
           },
         

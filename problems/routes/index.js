@@ -486,7 +486,45 @@ router.get('/edit_issues',isAuthenticated,async function(req,res,next){
     
 });
 
+router.get('/edit_request',isAuthenticated,async function(req,res,next){
+  var id = req.query.id;
+  //var name = req.params.name;
+  var assign=req.body.assigned;
+  //var data =[assign,id];
 
+  var username = req.session.user.name;
+  var data = [id,username];
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  //var status = req.query.status;
+  //name);
+    var sql= await db.query("SELECT * FROM staff");
+   var rs = await db.query("SELECT * from mis_requests where id = ? and sent_by = ?",data);
+   res.render('edit_request',{
+        details:rs[0],
+        staff: sql.length > 0 ? sql : null,
+        account:users
+   });
+    
+});
+
+router.post('/edit_request',isAuthenticated,async function(req,res,next){
+  var id = req.query.id;
+  //var name = req.params.name;
+  var message=req.body.message;
+  //var data =[assign,id];
+
+  var username = req.session.user.name;
+  var data = [message,id, username];
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  //var status = req.query.status;
+  //name);
+  var sql= await db.query("SELECT * FROM staff");
+  var rs = await db.query("UPDATE mis_requests SET message=? where id = ? and sent_by = ?",data);
+   res.redirect('back');
+    
+});
+
+// view issues sent
 router.get('/view_issues',isAuthenticated,async function(req,res,next){
   var id = req.query.id;
   var name = req.params.name;
@@ -508,7 +546,7 @@ router.get('/view_issues',isAuthenticated,async function(req,res,next){
     
 });
 
-
+// 
 router.post('/edit_issues',isAuthenticated, function(req,res,next){
   //query to insert form values 
   var param = [
@@ -586,6 +624,34 @@ router.get('/view_request2',isAuthenticated,async function(req, res, next) {
    title: 'Express' ,
    account:users,
    view:sql.length > 0 ? sql : null,
+   see:seen
+  });
+});
+
+router.get('/view_request_table',isAuthenticated,async function(req, res, next) {
+   var username = req.session.user.name;
+   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
+   var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
+   //query to select staff from table
+  res.render('view_request_table', {
+   title: 'Express',
+   account:users,
+   view:sql,
+   see:seen
+  });
+});
+
+router.get('/sent_request_table',isAuthenticated,async function(req, res, next) {
+   var username = req.session.user.name;
+   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_by = ? ORDER BY ID DESC LIMIT 10",username);
+   var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
+   //query to select staff from table
+  res.render('sent_request_table', {
+   title: 'Express',
+   account:users,
+   view:sql,
    see:seen
   });
 });
