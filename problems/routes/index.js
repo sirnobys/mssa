@@ -508,20 +508,16 @@ router.get('/edit_request',isAuthenticated,async function(req,res,next){
 });
 
 router.post('/edit_request',isAuthenticated,async function(req,res,next){
-  var id = req.query.id;
-  //var name = req.params.name;
-  var message=req.body.message;
-  //var data =[assign,id];
-
+  var message = req.body.message;
   var username = req.session.user.name;
-  var data = [message,id, username];
-  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var status = req.query.status;
-  //name);
-  var sql= await db.query("SELECT * FROM staff");
-  var rs = await db.query("UPDATE mis_requests SET message=? where id = ? and sent_by = ?",data);
-   res.redirect('back');
-    
+  var id = req.body.id;
+  data = [message,id,username];
+  db.query('UPDATE mis_requests SET message = ?, time = CURRENT_TIME() , date= CURRENT_DATE() where id = ? and sent_by = ?',data,function(err,rs){
+    if(err){
+      console.log(err);
+    }
+    res.redirect('/sent_request_table')
+  });
 });
 
 // view issues sent
@@ -549,11 +545,13 @@ router.get('/view_issues',isAuthenticated,async function(req,res,next){
 // 
 router.post('/edit_issues',isAuthenticated, function(req,res,next){
   //query to insert form values 
-  var param = [
-    req.body, //data for update
-    req.query.id //condition for update
-  ];
-  db.query('UPDATE problems SET ? where id = ?',param,function(err,rs){
+  var assigned_to = req.body.assigned_to;
+  var id = req.body.id;
+  data = [assigned_to,id];
+  db.query('UPDATE problems SET assigned_to = ? where id = ?',data,function(err,rs){
+    if(err){
+      console.log(err);
+    }
     res.redirect('/issues')
   });
 });
@@ -645,8 +643,8 @@ router.get('/view_request_table',isAuthenticated,async function(req, res, next) 
 router.get('/sent_request_table',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-   var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_by = ? ORDER BY ID DESC LIMIT 10",username);
-   var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
+   var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_by = ? ORDER BY date DESC LIMIT 10",username);
+   var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY date and time DESC LIMIT 10",username);
    //query to select staff from table
   res.render('sent_request_table', {
    title: 'Express',
