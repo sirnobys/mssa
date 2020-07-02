@@ -70,17 +70,20 @@
                       <td><%= problems.phone%></td>  
                       <td><%= problems.issue%></td>
 
-                      <form>
+                      <form action="/insert_estimated" method="POST">
                         
                       
-                      <td> <input type="time" required="" class="form-control" name=""></td>
-                      <td> <input type="date" required=""  class="form-control" name=""></td>                                                                                 
+                      <td> <input type="time" required="" class="form-control" name="time"></td>
+                      <td> <input type="date" required=""  class="form-control" name="date">
+                          <input type="" hidden="" name="id" value="<%= problems.id%>">
+                      </td>                                                                                 
                       <td>
-                     <div align="center">
+                     <!-- <div align="center">
                         <a href="/acknowledge/<%= problems.id %>"><button onclick="return confirm('send acknowledgment?')" type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
                        <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Acknowledge"></i></button>
                      </a>
-                     </div>
+                     </div> -->
+                     <input type="submit" name="" >
                     </td> 
                   </form>
 

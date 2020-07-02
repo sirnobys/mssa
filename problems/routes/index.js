@@ -187,7 +187,7 @@ router.get('/assigned',isAuthenticated, async function(req, res, next) {
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
-  var problems2 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL and completed=0");
+  var problems2 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_date and estimated_time desc");
   var problems3 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL ");
  if (priority == 1){
   res.render('priorityOne/assigned', { 
@@ -609,6 +609,47 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
    account:users,
    //staff:sql.length > 0 ? sql : null,
   });
+});
+
+
+
+// router.post('/insert_estimated',isAuthenticated,async function(req, res, next) {
+//    var id = req.body.id;
+//    var time = req.body.time;
+//    var date = req.body.date;
+//    // var time =curdate(),curtime();
+//    var data= [time, date, id];
+//    var estimated = await db.query("update problems set estimated_time=? , estimated_date=?, SET acknowledged = 1 WHERE id=?  ",data);
+//    //var sql= await db.query("SELECT * FROM staff");
+//    //query to select staff from table
+//   res.render('success', {
+//    title: 'Express' ,
+//    //account:estimated,
+//    //staff:sql.length > 0 ? sql : null,
+//   });
+// });
+
+router.post('/insert_estimated',isAuthenticated,async function(req, res, next) {
+   var id = req.body.id;
+   var time = req.body.time;
+   var date = req.body.date;
+   // var time =curdate(),curtime();
+   var data= [time, date, id];
+   db.query("update problems set estimated_time=? , estimated_date=?, acknowledged = 1 WHERE id=?  ",data,function(err,rs){
+    if(err){
+      console.log("Nipa ay3 beans"+err);
+    }
+    else{
+      res.redirect('back', {
+   title: 'Express' ,
+   //account:estimated,
+   //staff:sql.length > 0 ? sql : null,
+  });
+    }
+   });
+   //var sql= await db.query("SELECT * FROM staff");
+   //query to select staff from table
+  
 });
 
 
