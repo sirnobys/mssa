@@ -94,7 +94,7 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
     var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
     //count queries for the ticker
     var total_count = await db.query("SELECT COUNT(*) as total FROM problems");
-    var issues_count =  await db.query("SELECT COUNT(*) as issues FROM problems where completed IS NULL AND assigned_to IS NULL");
+    var issues_count =  await db.query("SELECT COUNT(*) as issues FROM problems where completed=0 AND assigned_to IS NULL");
     var complete = 1;
   var completed = await db.query("SELECT COUNT(*) as complete FROM problems where completed =?",complete);
   var assigned = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to IS NOT NULL ");
@@ -187,7 +187,7 @@ router.get('/assigned',isAuthenticated, async function(req, res, next) {
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
-  var problems2 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_date and estimated_time desc");
+  var problems2 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_datetime desc");
   var problems3 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL ");
  if (priority == 1){
   res.render('priorityOne/assigned', { 
@@ -253,7 +253,7 @@ router.get('/issues',isAuthenticated,async function(req, res, next) {
   var data=[username];
   var staff = await db.query("SELECT * FROM staff WHERE priority=1");
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",data);
-  var problems2 = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL");
+  var problems2 = await db.query("SELECT * FROM problems where completed =0 AND assigned_to IS NULL");
 
   if (priority==1){
     res.render('priorityOne/issues', { 
@@ -547,8 +547,9 @@ router.post('/edit_issues',isAuthenticated, function(req,res,next){
   //query to insert form values 
   var assigned_to = req.body.assigned_to;
   var id = req.body.id;
-  data = [assigned_to,id];
-  db.query('UPDATE problems SET assigned_to = ? where id = ?',data,function(err,rs){
+  var note = req.body.note;
+  data = [assigned_to, note, id];
+  db.query('UPDATE problems SET assigned_to = ?, note=? where id = ?',data,function(err,rs){
     if(err){
       console.log(err);
     }
@@ -631,20 +632,16 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
 
 router.post('/insert_estimated',isAuthenticated,async function(req, res, next) {
    var id = req.body.id;
-   var time = req.body.time;
-   var date = req.body.date;
+   // var time = req.body.time;
+   var datetime = req.body.time;
    // var time =curdate(),curtime();
-   var data= [time, date, id];
-   db.query("update problems set estimated_time=? , estimated_date=?, acknowledged = 1 WHERE id=?  ",data,function(err,rs){
+   var data= [datetime, id];
+   db.query("update problems set estimated_datetime=? , acknowledged = 1 WHERE id=?  ",data,function(err,rs){
     if(err){
       console.log("Nipa ay3 beans"+err);
     }
     else{
-      res.redirect('back', {
-   title: 'Express' ,
-   //account:estimated,
-   //staff:sql.length > 0 ? sql : null,
-  });
+      res.redirect('back');
     }
    });
    //var sql= await db.query("SELECT * FROM staff");

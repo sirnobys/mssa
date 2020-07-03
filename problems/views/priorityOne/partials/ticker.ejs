@@ -3,7 +3,9 @@
             <!-- small box -->
             <div class="small-box bg-dark">
               <div class="inner">
-                <h3>150</h3>
+                 <%  total.map((totals) => { %>
+                <h3><%= totals.total %></h3>
+                <% }) %>
 
                 <p>Total Assigned Tasks</p>
               </div>
@@ -18,7 +20,9 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                 <%  issues.map((issue) => { %>
+                <h3><%= issue.issues %></h3>                                                                                      
+              <% }) %>
 
                 <p>New Assigned Tasks</p>
               </div>
