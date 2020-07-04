@@ -53,8 +53,8 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Issue</th>
-                    <th>Estimated Date</th>
-                    <th>Action</th>
+                    <th>Estimated Completion Date</th>
+                    <th>&nbsp;</th>
                     
 
                   </tr>
@@ -76,13 +76,13 @@
                       <td width="1"> <input style="width: 230px" type="datetime-local" required=""  class="form-control" name="time">
                           <input type="" hidden="" name="id" value="<%= problems.id%>">
                       </td>                                                                                 
-                      <td>
+                      <td align="center">
                      <!-- <div align="center">
                         <a href="/acknowledge/<%= problems.id %>"><button onclick="return confirm('send acknowledgment?')" type="button" class=" my-1 btn mr-2 ml-auto rounded-circle  btn-outline-primary btn-flat">
                        <i class="fas fa-thumbs-up" data-toggle="tooltip" data-placement="top" title="Acknowledge"></i></button>
                      </a>
                      </div> -->
-                     <input type="submit" class="btn btn-primary btn-flat" name="" onclick="return confirm('submit date and time?')" >
+                     <button type="submit" class="btn btn-success btn-flat" name="" onclick="return confirm('submit date and time?')" ><i class="fa  fa-thumbs-up"></i>&nbsp; &nbsp; Acknowledge</button>
                     </td> 
                   </form>
 
