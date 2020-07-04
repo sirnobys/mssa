@@ -29,7 +29,7 @@
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="/assigned" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/issues" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -37,14 +37,16 @@
             <!-- small box -->
             <div class="small-box bg-white">
               <div class="inner">
-                <h3>44</h3>
+                <%  assign.map((assigned) => { %>
+                <h3><%= assigned.assigned %></h3>                                                                                      
+              <% }) %>
 
                 <p>Acknowledged Tasks</p>
               </div>
               <div class="icon">
             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="/assigned" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -52,7 +54,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>65</h3>
+                <%  complete.map((completed) => { %>
+                <h3><%= completed.completed %></h3>                                                                                      
+              <% }) %>
                 <p>Completed Tasks</p>
               </div>
               <div class="icon">

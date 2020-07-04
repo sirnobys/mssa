@@ -96,8 +96,11 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
     var total_count = await db.query("SELECT COUNT(*) as total FROM problems");
     var issues_count =  await db.query("SELECT COUNT(*) as issues FROM problems where completed=0 AND assigned_to IS NULL");
     var complete = 1;
-  var completed = await db.query("SELECT COUNT(*) as complete FROM problems where completed =?",complete);
-  var assigned = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to IS NOT NULL ");
+  var data=[complete,username];
+  var completed = await db.query("SELECT COUNT(*) as completed FROM problems where completed =?",complete);
+  var completed1 = await db.query("SELECT COUNT(*) as completed FROM problems where completed =? and assigned_to=?",data);
+  var assigned = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to IS NOT NULL and completed=0");
+  var assigned1 = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
     var problems = await db.query("SELECT * FROM problems");
     if (priority == 1){
       res.render('priorityOne/dashboard',{
@@ -107,8 +110,8 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
         problem:problems,
         total:total_count,
         issues:issues_count,
-        complete:completed,
-        assign:assigned
+        complete:completed1,
+        assign:assigned1
       });
     }
     else if (priority == 2){
@@ -562,7 +565,7 @@ router.get('/complete/:id',isAuthenticated, async function(req,res,next){
   //var status = req.query.status;
 
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
-    res.redirect('/issues');
+    res.redirect('/completed');
 });
 
 // Acknowledgment
