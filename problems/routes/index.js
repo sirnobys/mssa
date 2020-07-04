@@ -95,6 +95,7 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
     //count queries for the ticker
     var total_count = await db.query("SELECT COUNT(*) as total FROM problems");
     var issues_count =  await db.query("SELECT COUNT(*) as issues FROM problems where completed=0 AND assigned_to IS NULL");
+    var issues_count1 =  await db.query("SELECT COUNT(*) as issues FROM problems where completed=0 AND acknowledged is null AND assigned_to=?",username);
     var complete = 1;
   var data=[complete,username];
   var completed = await db.query("SELECT COUNT(*) as completed FROM problems where completed =?",complete);
@@ -109,7 +110,7 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
         account:users,
         problem:problems,
         total:total_count,
-        issues:issues_count,
+        issues:issues_count1,
         complete:completed1,
         assign:assigned1
       });
