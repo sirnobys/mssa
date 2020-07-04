@@ -94,6 +94,7 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
     var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
     //count queries for the ticker
     var total_count = await db.query("SELECT COUNT(*) as total FROM problems");
+    var total_count1 = await db.query("SELECT COUNT(*) as total FROM problems WHERE assigned_to=?",username);
     var issues_count =  await db.query("SELECT COUNT(*) as issues FROM problems where completed=0 AND assigned_to IS NULL");
     var issues_count1 =  await db.query("SELECT COUNT(*) as issues FROM problems where completed=0 AND acknowledged is null AND assigned_to=?",username);
     var complete = 1;
@@ -102,14 +103,15 @@ router.get('/dashboard',isAuthenticated, async function(req, res, next) {
   var completed1 = await db.query("SELECT COUNT(*) as completed FROM problems where completed =? and assigned_to=?",data);
   var assigned = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to IS NOT NULL and completed=0");
   var assigned1 = await db.query("SELECT COUNT(*) as assigned FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
-    var problems = await db.query("SELECT * FROM problems");
+  var problems = await db.query("SELECT * FROM problems");
+  var problems1 = await db.query("SELECT * FROM problems WHERE assigned_to=?",username);
     if (priority == 1){
       res.render('priorityOne/dashboard',{
         user:req.session.user,
         //messages:dt,
         account:users,
-        problem:problems,
-        total:total_count,
+        problem:problems1,
+        total:total_count1,
         issues:issues_count1,
         complete:completed1,
         assign:assigned1
