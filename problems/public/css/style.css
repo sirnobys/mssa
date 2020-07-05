@@ -82,7 +82,7 @@ body {
     box-shadow: 0px 0px 20px 0px rgba(10,0,80,0.7);
     padding: 55px;
       background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,46,1) 0%, rgba(9,9,121,0) 35%, rgba(121,21,0,1) 100%);
+background: linear-gradient(360deg, rgba(2,0,46,1) 0%, rgba(9,9,121,0) 35%, rgba(121,21,0,1) 100%);
 
 }
 .sub-main-w3 h2 {
@@ -111,8 +111,8 @@ background: linear-gradient(90deg, rgba(2,0,46,1) 0%, rgba(9,9,121,0) 35%, rgba(
     letter-spacing: 1px;
 }
 .right-w3l input[type="submit"] {
-    color: #fff;
-    background: #0b0259;
+    color: #000;
+    background: linear-gradient(360deg, rgba(200,200,240,1) 0%, rgba(200,200,250,1) 100%);;
     border: none;
     padding: 12px 45px;
     outline: none;
@@ -252,7 +252,7 @@ a:hover {
     }
 }
 @media(max-width: 1366px){
-    
+
 
     .sub-main-w3 {
         width: 31%;
