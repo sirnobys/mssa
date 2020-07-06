@@ -156,24 +156,32 @@ router.get('/assigned',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   //priority of logged user stored here
   var priority = req.session.user.priority;
-
+  //variable to get logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var completed = 1;
+//getting the problems assigned to logged in user
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
+  //getting the problems where a staff hass been asigned
   var problems2 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_datetime desc");
+  //getting all the  assigned problems
   var problems3 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL ");
+
+   //if user belongs to priority one do this
  if (priority == 1){
   res.render('priorityOne/assigned', { 
     title: 'Express',
   account:users ,
   problem:problems1});
  }
+
+  //if user belongs to priority two do this
  else if(priority ==2){
   res.render('priorityTwo/assigned', {
     title: 'Express',
    account:users,
  problem:problems2 });
  }
+
+  //if user belongs to priority three do this
  else if(priority==3){
   res.render('priorityThree/assigned', { 
     title: 'Express',
@@ -190,11 +198,16 @@ router.get('/completed',isAuthenticated, async function(req, res, next) {
   var username = req.session.user.name;
   //priority of logged user stored here
   var priority = req.session.user.priority;
+  //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   var completed = 1;
   var data=[completed,username];
+  // get all the problems that have been assigned to loggged in user and have been completed
   var problems1 = await db.query("SELECT * FROM problems where completed =? AND assigned_to =?",data);
-  var problems2 = await db.query("SELECT * FROM problems where completed =?",completed)
+  //get all problems that have been completed from database
+  var problems2 = await db.query("SELECT * FROM problems where completed =?",completed);
+
+   //if user belongs to priority one do this
   if(priority==1){
     res.render('priorityOne/completed', {
       title: 'Express' ,
@@ -202,12 +215,16 @@ router.get('/completed',isAuthenticated, async function(req, res, next) {
      problem:problems1
    });
   }
+
+   //if user belongs to priority two do this
   else if(priority==2){
     res.render('priorityTwo/completed', { 
       title: 'Express',
     account:users ,
     problem:problems2});
   }
+
+   //if user belongs to priority three do this
   else if(priority==3){
   res.render('priorityThree/completed', { 
     title: 'Express',
@@ -218,12 +235,13 @@ router.get('/completed',isAuthenticated, async function(req, res, next) {
   
 });
 
-//get issues1 page
-//where no issue is acknowledged yet nor completed.
+//get issues page based on users priority
 router.get('/issues',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here
   var username = req.session.user.name;
+    //priority of logged user stored here
   var priority = req.session.user.priority;
+   //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var data=[username];
@@ -260,8 +278,9 @@ router.get('/issues',isAuthenticated,async function(req, res, next) {
 
 
 
-//get complaint page
+//route to insert data into problems table
 router.post('/insert', function(req, res, next) {
+  // getting information from form body 
   var name=req.body.name;
   var staff_student_id = req.body.staff_student_id;
   var phone = req.body.phone;
@@ -270,11 +289,14 @@ router.post('/insert', function(req, res, next) {
   var category = req.body.category;
   var data= [name,staff_student_id,email,phone,issue,category];
   
+  //query to insert data into problems table
    db.query("INSERT INTO problems (name,staff_student_id,email,phone,issue,issue_category) VALUES(?,?,?,?,?,?)",data,function(err,rs){
+    //if error exists show in console and redirect user back to complaint page
     if (err){
       console.log(err);
       res.redirect('/');
     }
+    //else show success page
     else{
       res.redirect('/success',);
     }
@@ -287,16 +309,13 @@ router.post('/insert', function(req, res, next) {
 router.get('/add_staff',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here
   var username = req.session.user.name;
-  
+   //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var staff = await db.query("SELECT * FROM staff ");
-  //var completed = 1;
-  //var problems = await db.query("SELECT * FROM problems where completed IS NULL AND assigned_to IS NULL")
+
+  //show add satff page
   res.render('priorityTwo/add_staff', { 
-    title: 'Express',
+    title: 'Add Staff',
   account:users ,
- // problem:problems,
-  //staff:staff
 });
 });
 
@@ -304,19 +323,26 @@ router.get('/add_staff',isAuthenticated,async function(req, res, next) {
 router.post('/insert_staff',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here
   var username = req.session.user.name;
+
+  //storing data from form body into variables
   var name=req.body.name;
-  //var staff_student_id = req.body.staff_student_id;
   var phone = req.body.phone;
   var email = req.body.email;
   var priority = req.body.priority;
   var password = req.body.password;
   var data= [name,email,phone,priority,password];
+
+  //get logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+
+  // store new staff details into database
   db.query("INSERT INTO staff (name,email,phone ,priority,password) VALUES(?,?,?,?,?)",data,function(err,rs){
+    //if error show error in console and redirect page to same page
     if (err){
       console.log(err);
       res.redirect('/add_staff');
     }
+    //if successful redirect to success
     else{
       res.redirect('/staff_success');
     }
@@ -344,6 +370,7 @@ router.get('/edit_issues',isAuthenticated,async function(req,res,next){
   var assign=req.body.assigned;
  //name of logged user stored here
   var username = req.session.user.name;
+   //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
   //name);
@@ -365,6 +392,7 @@ router.get('/edit_request',isAuthenticated,async function(req,res,next){
 //name of logged user stored here
   var username = req.session.user.name;
   var data = [id,username];
+   //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
   //name);
@@ -400,6 +428,7 @@ router.get('/view_issues',isAuthenticated,async function(req,res,next){
   var data =[assign,id];
   //name of logged user stored here
   var username = req.session.user.name;
+   //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var status = req.query.status;
   console.log(name);
@@ -460,6 +489,7 @@ router.get('/success',isAuthenticated, function(req, res, next) {
 router.get('/request2',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
+   //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM staff");
    //query to select staff from table
@@ -477,6 +507,7 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
    var message = req.body.message;
    // var time =curdate(),curtime();
    var data= [staff, username, message];
+    //getting logged in users details
    var users = await db.query("Insert into mis_requests (sent_to, sent_by, message,time,date) VALUES (?,?,?,curtime(),curdate())  ",data);
    //var sql= await db.query("SELECT * FROM staff");
    //query to select staff from table
@@ -510,6 +541,7 @@ router.post('/insert_estimated',isAuthenticated,async function(req, res, next) {
 router.get('/view_request2',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
+   //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
@@ -525,6 +557,7 @@ router.get('/view_request2',isAuthenticated,async function(req, res, next) {
 router.get('/view_request_table',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
+   //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
@@ -540,6 +573,7 @@ router.get('/view_request_table',isAuthenticated,async function(req, res, next) 
 router.get('/sent_request_table',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
+   //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_by = ? ORDER BY date DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY date and time DESC LIMIT 10",username);
@@ -556,6 +590,7 @@ router.get('/sent_request_table',isAuthenticated,async function(req, res, next) 
 router.get('/reset_password',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
+   //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
@@ -593,6 +628,7 @@ router.get('/status/:id',isAuthenticated, async function(req,res,next){
 
 //route to logout and terminate a user session
 router.get('/logout', function(req, res, next) {
+  // i think this explains itself
   req.session.destroy(()=>{
        res.redirect('/admin')
   });
