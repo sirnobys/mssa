@@ -372,10 +372,11 @@ router.get('/edit_issues',isAuthenticated,async function(req,res,next){
   var username = req.session.user.name;
    //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var status = req.query.status;
-  //name);
+  //getting staff details
    var sql= await db.query("SELECT * FROM staff");
+   //getting problem details using the id
    var rs = await db.query("SELECT * from problems where id = ?",id);
+   //rendering form page to display details
    res.render('priorityTwo/form',{
         details:rs[0],
         staff: sql.length > 0 ? sql : null,
@@ -394,10 +395,11 @@ router.get('/edit_request',isAuthenticated,async function(req,res,next){
   var data = [id,username];
    //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var status = req.query.status;
-  //name);
+   //getting staff details
     var sql= await db.query("SELECT * FROM staff");
+     //getting request details using the id so it can be updated
    var rs = await db.query("SELECT * from mis_requests where id = ? and sent_by = ?",data);
+   //showing details on edit_request page
    res.render('edit_request',{
         details:rs[0],
         staff: sql.length > 0 ? sql : null,
@@ -407,11 +409,14 @@ router.get('/edit_request',isAuthenticated,async function(req,res,next){
 });
 
 router.post('/edit_request',isAuthenticated,async function(req,res,next){
+  //message sent to staff stored here
   var message = req.body.message;
   //name of logged user stored here
   var username = req.session.user.name;
+  //id of message stored here
   var id = req.body.id;
   data = [message,id,username];
+  //query to update requests sent to someone based on its id an updating its date and time 
   db.query('UPDATE mis_requests SET message = ?, time = CURRENT_TIME() , date= CURRENT_DATE() where id = ? and sent_by = ?',data,function(err,rs){
     if(err){
       console.log(err);
@@ -422,6 +427,7 @@ router.post('/edit_request',isAuthenticated,async function(req,res,next){
 
 // view issues sent
 router.get('/view_issues',isAuthenticated,async function(req,res,next){
+  //variables to take data from the form
   var id = req.query.id;
   var name = req.params.name;
   var assign=req.body.assigned;
@@ -430,11 +436,14 @@ router.get('/view_issues',isAuthenticated,async function(req,res,next){
   var username = req.session.user.name;
    //getting logged in users details
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
-  //var status = req.query.status;
-  console.log(name);
+ 
+ 
+//showing list of all staff
   var sql= ("SELECT * FROM staff");
 
+  //viewing a problem based on its id
     db.query("SELECT * from problems where id = ?",id,function(err,rs){
+      //if query works render view page
       res.render('priorityTwo/view',{
         details:rs[0],
         staff:sql[0],
@@ -446,38 +455,45 @@ router.get('/view_issues',isAuthenticated,async function(req,res,next){
 
 // 
 router.post('/edit_issues',isAuthenticated, function(req,res,next){
-  //query to insert form values 
+  //storing values from form body
   var assigned_to = req.body.assigned_to;
   var id = req.body.id;
   var note = req.body.note;
   data = [assigned_to, note, id];
+  //query to update note section and assigned to of form body.
   db.query('UPDATE problems SET assigned_to = ?, note=? where id = ?',data,function(err,rs){
+    //print error if there is any
     if(err){
       console.log(err);
     }
+    //else redirect to issues page
     res.redirect('/issues')
   });
 });
 
+//route to update database entry and make problems completed
 router.get('/complete/:id',isAuthenticated, async function(req,res,next){
+  //getting params from the button
   var id = req.params.id;
-  //var status = req.query.status;
-
+ 
+  //query to update problems to completed
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
+    //redirect to completed page after this query has run
     res.redirect('/completed');
 });
 
-// Acknowledgment
+//route to aknowledge that a problem has been seen
 router.get('/acknowledge/:id',isAuthenticated, async function(req,res,next){
+  //stores form id parameter
   var id = req.params.id;
-  //var status = req.query.status;
-
+  
+//query to update problems as aknowlegded
     var assign = await db.query("UPDATE problems SET acknowledged = 1 where id = ?",id); 
     res.redirect('/assigned');
 });
 
 
-
+//route to show success page
 router.get('/success',isAuthenticated, function(req, res, next) {
   res.render('success', { title: 'Express' });
 });
@@ -485,14 +501,15 @@ router.get('/success',isAuthenticated, function(req, res, next) {
 
 
 
-
+//route to get send_request page
 router.get('/request2',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
    //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   //getting staff list
    var sql= await db.query("SELECT * FROM staff");
-   //query to select staff from table
+  //show send_request page
   res.render('send_request', {
    title: 'Express' ,
    account:users,
@@ -500,6 +517,7 @@ router.get('/request2',isAuthenticated,async function(req, res, next) {
 });
 
 
+//route to send message to staff
 router.post('/insert_message',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
@@ -509,31 +527,33 @@ router.post('/insert_message',isAuthenticated,async function(req, res, next) {
    var data= [staff, username, message];
     //getting logged in users details
    var users = await db.query("Insert into mis_requests (sent_to, sent_by, message,time,date) VALUES (?,?,?,curtime(),curdate())  ",data);
-   //var sql= await db.query("SELECT * FROM staff");
-   //query to select staff from table
-  res.render('success', {
+  
+   res.render('success', {
    title: 'Express' ,
    account:users,
    //staff:sql.length > 0 ? sql : null,
   });
 });
 
+//route to update estimated time
 router.post('/insert_estimated',isAuthenticated,async function(req, res, next) {
+  //getting problem id from form body
    var id = req.body.id;
-   // var time = req.body.time;
+   //getting date input from body
    var datetime = req.body.time;
    // var time =curdate(),curtime();
    var data= [datetime, id];
+   //query to update the problem estimated time
    db.query("update problems set estimated_datetime=? , acknowledged = 1 WHERE id=?  ",data,function(err,rs){
+     //print error if any
     if(err){
       console.log("Nipa ay3 beans"+err);
     }
+    //else return to same page
     else{
       res.redirect('back');
     }
    });
-   //var sql= await db.query("SELECT * FROM staff");
-   //query to select staff from table
   
 });
 
@@ -543,9 +563,10 @@ router.get('/view_request2',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
    //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   //select sent requests that havent been deleted
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
-   //query to select staff from table
+   //show view_request page
   res.render('view_request', {
    title: 'Express' ,
    account:users,
@@ -554,14 +575,17 @@ router.get('/view_request2',isAuthenticated,async function(req, res, next) {
   });
 });
 
+//showing the view requests table
 router.get('/view_request_table',isAuthenticated,async function(req, res, next) {
   //name of logged user stored here 
   var username = req.session.user.name;
    //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   //printing sent requests that havent been deleted
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
+   //printing sent requests that have been seen
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
-   //query to select staff from table
+   //show view requests
   res.render('view_request_table', {
    title: 'Express',
    account:users,
@@ -592,9 +616,11 @@ router.get('/reset_password',isAuthenticated,async function(req, res, next) {
   var username = req.session.user.name;
    //getting logged in users details
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+   //selecting requests that were sent and havent been deleted
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
+   //showingh requests that were sent and seen
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
-   //query to select staff from table
+  //rendering reset page
   res.render('reset', {
    title: 'Express' ,
    account:users,
@@ -604,7 +630,7 @@ router.get('/reset_password',isAuthenticated,async function(req, res, next) {
 });
 
 router.get('/forgot_password',async function(req, res, next) {
-  //var cat = issue_category;
+
   var category =await db.query("SELECT * FROM issue_category");
   res.render('forgot', { title: 'Express' ,
  cats:category
@@ -617,7 +643,7 @@ router.get('/forgot_password',async function(req, res, next) {
 router.get('/status/:id',isAuthenticated, async function(req,res,next){
   var id = req.params.id;
   var status = req.query.status;
-
+//changing message seen status to either seen or delete based on button clicked on the frontend
   if(status == '0'){
     var seen = await db.query("UPDATE mis_requests SET seen_status = 1 where id = ?",id); 
   }else if(status=='1'){
