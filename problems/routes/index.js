@@ -193,7 +193,7 @@ router.get('/assigned',isAuthenticated, async function(req, res, next) {
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
-  var problems2 = await db.query("SELECT id,name,issue,acknowledged,estimated_datetime as date,assigned_to FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_datetime desc");
+  var problems2 = await db.query("SELECT id,name,issue,note,acknowledged,estimated_datetime as date,assigned_to FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_datetime desc");
   var problems3 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL ");
  if (priority == 1){
   res.render('priorityOne/assigned', { 
@@ -523,6 +523,42 @@ router.post('/edit_request',isAuthenticated,async function(req,res,next){
       console.log(err);
     }
     res.redirect('/sent_request_table')
+  });
+});
+
+
+router.get('/add_note',isAuthenticated,async function(req,res,next){
+  var id = req.query.id;
+  //var name = req.params.name;
+  // var assign=req.body.assigned;
+  //var data =[assign,id];
+
+  var username = req.session.user.name;
+  var data = [id,username];
+  var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
+  //var status = req.query.status;
+  //name);
+    var sql= await db.query("SELECT * FROM staff");
+    var rs = await db.query("SELECT * from problems WHERE id =?",id);
+   res.render('add_note',{
+        details:rs[0],
+        staff: sql.length > 0 ? sql : null,
+        account:users
+   });
+    
+});
+
+router.post('/add_note',isAuthenticated,async function(req,res,next){
+  var note = req.body.note;
+  var username = req.session.user.name;
+  var id = req.body.id;
+  data = [note,id];
+  db.query('UPDATE problems SET note = ? where id = ?',data,function(err,rs){
+    if(err){
+      console.log(err);
+    }
+    // alert('edited successfully');
+    res.redirect('/assigned')
   });
 });
 
