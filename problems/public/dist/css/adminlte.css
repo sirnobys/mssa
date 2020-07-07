@@ -73,6 +73,13 @@ body {
   outline: 0 !important;
 }
 
+.long-text{
+max-width: 180px;
+}
+
+.short-text{
+max-width: 90px;
+}
 hr {
   box-sizing: content-box;
   height: 0;

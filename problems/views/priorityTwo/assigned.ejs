@@ -51,13 +51,13 @@
                   <tr>
                     <!-- <th>Request ID</th> -->
                     <th>Name</th>
-                    <th>ID</th>
+                   <!--  <th>ID</th>
                     <th>Email</th>
-                    <th>Phone</th>
+                    <th>Phone</th> -->
                     <th>Issue</th>
                     <th>Assigned to</th>
                     <th>Acknowledgment</th>
-                    <th>Action</th>
+                    <th>Add Note</th>
                     <!-- <th>Edit</th> -->
                   </tr>
                   </thead>
@@ -66,31 +66,30 @@
                     <%  problem.map((problems) => { %>
                       <tr>
                         <!-- <td><%= problems.id%></td>                    -->
-                        <td><%= problems.name %></td>                   
-                        <td><%= problems.staff_student_id%></td>
-                        <td><%= problems.email%></td>  
-                        <td><%= problems.phone%></td>  
-                        <td><%= problems.issue%></td> 
-                        <td><%= problems.assigned_to%></td> 
-                        <td width="1" style="width: 270px;"><% if(problems.acknowledged == null){ %>
+                        <td class="short-text"><%= problems.name %></td>                   
+                        <!-- <td class="short-text"><%= problems.staff_student_id%></td>
+                        <td class="short-text"><%= problems.email%></td>  
+                        <td><%= problems.phone%></td>   -->
+                        <td class="long-text"><%= problems.issue%></td> 
+                        <td class="short-text"><%= problems.assigned_to%></td> 
+                        <td class="short-text"><% if(problems.acknowledged == null){ %>
                           <div align="center">
                             <span class="badge badge-danger">Negative</span>
                           </div>
                           
                           <% } else{ %>  
                           <div align="center">
-                            <span class="btn bg-primary btn-flat" style="border-radius: 300px"><%=problems.estimated_datetime%></span>
+                            <span class="btn bg-primary btn-flat" style="border-radius: 300px;">
+                              <%=problems.date%>
+                              </span>
                           </div>
                           <% } %>
 
                         </td> 
-                        <td align="center">
-                          <% if(problems.acknowledged == null){ %>
-                          <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-success btn-flat"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                           <% } else{ %>  
-                            <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-danger btn-flat"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            <% } %>
-                        </td>
+                       <td>
+                          <button type="button" class=" mr-auto ml-auto my-1 btn btn-outline-success btn-flat
+                          "><i class="fa fa-edit" aria-hidden="true"></i></button>
+                       </td>
 
 
                        <!--  <td class="bg-white text-center">
@@ -105,13 +104,13 @@
                   <tr>
                     <!-- <th>Request ID</th> -->
                     <th>Name</th>
-                    <th>ID</th>
+                   <!--  <th>ID</th>
                     <th>Email</th>
-                    <th>Phone</th>
+                    <th>Phone</th> -->
                     <th>Issue</th>
                     <th>Assigned to</th>
                     <th>Acknowledgment</th>
-                    <th>Action</th>
+                    <th>Add Note</th>
                   </tr>
                   </tfoot>
                 </table>
