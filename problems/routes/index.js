@@ -193,7 +193,7 @@ router.get('/assigned',isAuthenticated, async function(req, res, next) {
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
   var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged=1 and completed=0",username);
-  var problems2 = await db.query("SELECT id,name,issue,note,acknowledged,estimated_datetime as date,assigned_to FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY estimated_datetime desc");
+  var problems2 = await db.query("SELECT id, time,name,issue,note,acknowledged,estimated_datetime as date,assigned_to FROM problems where assigned_to IS NOT NULL and completed=0 ORDER BY time DESC ");
   var problems3 = await db.query("SELECT * FROM problems where assigned_to IS NOT NULL ");
  if (priority == 1){
   res.render('priorityOne/assigned', { 
@@ -518,7 +518,7 @@ router.post('/edit_request',isAuthenticated,async function(req,res,next){
   var username = req.session.user.name;
   var id = req.body.id;
   data = [message,id,username];
-  db.query('UPDATE mis_requests SET message = ?, time = CURRENT_TIME() , date= CURRENT_DATE() where id = ? and sent_by = ?',data,function(err,rs){
+  db.query('UPDATE mis_requests SET message = ?, seen_status=0, time = CURRENT_TIME() , date= CURRENT_DATE() where id = ? and sent_by = ?',data,function(err,rs){
     if(err){
       console.log(err);
     }
@@ -539,7 +539,7 @@ router.get('/add_note',isAuthenticated,async function(req,res,next){
   //var status = req.query.status;
   //name);
     var sql= await db.query("SELECT * FROM staff");
-    var rs = await db.query("SELECT * from problems WHERE id =?",id);
+    var rs = await db.query("SELECT * from problems WHERE id =? ",id);
    res.render('add_note',{
         details:rs[0],
         staff: sql.length > 0 ? sql : null,
@@ -553,7 +553,7 @@ router.post('/add_note',isAuthenticated,async function(req,res,next){
   var username = req.session.user.name;
   var id = req.body.id;
   data = [note,id];
-  db.query('UPDATE problems SET note = ? where id = ?',data,function(err,rs){
+  db.query('UPDATE problems SET note = ?, time= current_timestamp where id = ?',data,function(err,rs){
     if(err){
       console.log(err);
     }
