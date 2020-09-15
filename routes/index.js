@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var md5 = require('mysql');
-
+var sendmail = require('../mailer/email');
+var sendsms = require('../mailer/sms')
 //calling database file to connect to database
 var db = require('../config/config');
+
 
 //function to verify if the user is logged in
 var isAuthenticated = (req,res,next)=>{
@@ -371,7 +373,7 @@ router.get('/issues',isAuthenticated,async function(req, res, next) {
 
 
 
-//get complaint page
+//post complaint page
 router.post('/insert', function(req, res, next) {
   var name=req.body.name;
   var staff_student_id = req.body.staff_student_id;
@@ -380,14 +382,28 @@ router.post('/insert', function(req, res, next) {
   var issue = req.body.problem;
   var category = req.body.category;
   var data= [name,staff_student_id,email,phone,issue,category];
+const subj = category;
+//const title = 'Problem Rep';
+const note= ' issue';
+const msg = "Thank you for reporting your issue to MIS. It will be handled shortly. \n Thank You.";
+//const  email_sendto = email;
+
+// var data1 = [
+//   //subject,message,email_sendto,
+//   'MIS','Issue',
+//   name,subject,message,email_sendto]
+  
   
    db.query("INSERT INTO problems (name,staff_student_id,email,phone,issue,issue_category) VALUES(?,?,?,?,?,?)",data,function(err,rs){
     if (err){
       console.log(err);
+      
       res.redirect('/');
     }
     else{
       res.redirect('/success',);
+      sendmail(category,note,null,name,null,subj,msg,email);
+      //sendsms(phone,msg);
     }
    
    })
@@ -792,6 +808,13 @@ router.get('/status/:id',isAuthenticated, async function(req,res,next){
   }
   res.redirect('back');
 })
+
+
+//route to send email to individual
+router.post('/sendmail',async function(req,res,nextg){
+  var id = req.params.id;
+  
+});
 
 //route to logout and terminate a user session
 router.get('/logout', function(req, res, next) {
