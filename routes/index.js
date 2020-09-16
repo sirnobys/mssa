@@ -639,8 +639,19 @@ router.get('/fetchrequest:id',isAuthenticated,async function(req,res,next){
 router.get('/complete/:id',isAuthenticated, async function(req,res,next){
   var id = req.params.id;
   //var status = req.query.status;
+  var title = await db.query("SELECT staff_student_id FROM problems where id =?",id);
+  var note= await db.query("SELECT staff_student_id FROM problems where id =?",id);
+  var name = await db.query("SELECT name FROM problems where id =?",id);
+  var subj =await db.query("SELECT issue_category FROM problems where id =?",id);
+  var msg = "Your problem has been fixed";
+  var email = await db.query("SELECT email FROM problems where id =?",id);
+
+  var new_email = email.toString();
 
     var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
+    console.log(new_email);
+    
+   //await sendmail(title,note,null,name,null,subj,msg,new_email);
     res.redirect('/completed');
 });
 
