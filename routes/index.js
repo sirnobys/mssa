@@ -639,20 +639,24 @@ router.get('/fetchrequest:id',isAuthenticated,async function(req,res,next){
 router.get('/complete/:id',isAuthenticated, async function(req,res,next){
   var id = req.params.id;
   //var status = req.query.status;
-  var title = await db.query("SELECT staff_student_id FROM problems where id =?",id);
-  var note= await db.query("SELECT staff_student_id FROM problems where id =?",id);
-  var name = await db.query("SELECT name FROM problems where id =?",id);
-  var subj =await db.query("SELECT issue_category FROM problems where id =?",id);
-  var msg = "Your problem has been fixed";
-  var email = await db.query("SELECT email FROM problems where id =?",id);
-
-  var new_email = email.toString();
-
-    var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
-    console.log(new_email);
+  var assign = await db.query("UPDATE problems SET completed = 1 where id = ?",id); 
+  var data = await db.query("SELECT * FROM problems where id =?",id);
+  if(data.length > 0){
+      var msg = "Your problem has been fixed";
+      /* 
+      var note= await db.query("SELECT staff_student_id FROM problems where id =?",id);
+      var name = await db.query("SELECT name FROM problems where id =?",id);
+      var subj =await db.query("SELECT issue_category FROM problems where id =?",id);
     
-   //await sendmail(title,note,null,name,null,subj,msg,new_email);
-    res.redirect('/completed');
+      var email = await db.query("SELECT email FROM problems where id =?",id);
+
+      var new_email = email.toString();*/
+
+      
+      //console.log(new_email);
+      sendmail(data[0].title,data[0].staff_student_id,null,data[0].name,null,data[0].issue_category,msg,(data[0].email ? data[0].email:'essentialfertilizer@gmail.com'));
+      // sendmail(title,note,null,name,null,subj,msg,new_email);
+  } res.redirect('/completed');
 });
 
 // Acknowledgment

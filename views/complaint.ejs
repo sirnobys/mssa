@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MIS IA PORTAL</title>
+  <title>MIS ISSUE ASSISTANCE PORTAL</title>
 
   <!-- Google Font: Source Sans Pro -->
-    <link rel="icon" type="image/png" href="../images/ucc.gif">
+    <link rel="icon" type="image/png" href="../images/ucc.png">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -50,8 +50,9 @@
 
     <section class="content">
       <div class="container-fluid ">
+
         <hr>
-        <h3 class="text-center mt-3 text-white">MIS IA PORTAL</h3>
+        <h3 class="text-center mt-3 text-white"> <span class="col-md-10"><img src="/images/ucc.png" width="5%" class="img-fluid" align="success"></span>M.I.S. ISSUE ASSISTANCE PORTAL</h3>
         <hr>
         <div class="row">
           <!-- left column -->
@@ -60,7 +61,7 @@
             <!-- jquery validation -->
             <div class="card card-primary">
               <div class="card-header bstyle card-title">
-                <center>Fill in the fields below</center>
+                <center>FILL IN THE FIELDS BELOW</center>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -68,11 +69,11 @@
                 <div class="card-body">
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                       <label for="name">Name</label>
-                       <input type="text" name="name" class="form-control" id="" placeholder="Enter name">
+                       <label for="name">NAME</label>
+                       <input type="text" name="name" class="form-control" id="" placeholder="Enter full name here">
                     </div>
                    <div class="form-group col-md-6">
-                       <label for="staff_student_id">Staff/Student ID</label>
+                       <label for="staff_student_id">STAFF NO./STUDENT REGISTRATION NUMBER</label>
                        <input type="text" name="staff_student_id" class="form-control" id="" placeholder="Enter ID">
                     </div>
 
@@ -80,32 +81,55 @@
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                       <label for="phone">Phone</label>
-                       <input type="number" name="phone" class="form-control" id="" placeholder="Enter phone">
+                       <label for="phone">PHONE</label>
+                       <input type="number" name="phone" class="form-control" id="" placeholder="Enter phone number">
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="email">Email</label>
-                      <input type="email" name="email" class="form-control" id="" placeholder="Email">
+                      <label for="email">INSTITUTIONAL EMAIL</label>
+                      <input type="email" name="email" class="form-control" id="" placeholder="Enter your Institutional Email here">
                    </div>
 
                   </div>
 
                   <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="priority">Problem Category</label>
+                        <label for="priority">PROBLEM CATEGORY</label>
                         
-                        <select class="form-control" name="category">
+                        <!-- <select class="form-control" name="category">
                         
                           <option disabled selected >Select Category</option>
                           <%  cats.map((cat) => { %>
                           <option><%= cat.category %></option>
 
                           <% }) %>
+                        </select> -->
+                        <select class="form-control" name="category">
+                        
+                          <option disabled selected >Select Category</option>
+                         
+                          <option>STUDENT PORTAL ACCESS</option>
+                          <option>STAFF PORTAL ACCESS</option>
+                          <option>NEW OASIS ACCOUNT</option>
+                          <option>OASIS ACCOUNT RESET</option>
+                          <option>UCC EMAIL PASSWORD RESET</option>
+                          <option>UCC EMAIL ACTIVATION</option>
+                          <option>STAFF DETAILS UPDATE</option>
+                          <option>STAFF LEAVE</option>
+                          <option>STAFF ID CARD</option>
+                          <option>STUDENT ID CARD</option>
+                          <option>STUDENT DETAILS UPDATE</option>
+                          <option>COURSES REGISTRATION</option>
+                          <option>COURSE GROUPING</option>
+                          <option>HALL PLACEMENT</option>
+                          <option>STUDENTS RESULTS</option>
+                          <option>EXAMS TIMETABLE</option>
+
+                         
                         </select>
                      </div>
                     <div class="form-group col-md-6">
-                       <label for="problem">Report problem</label>
-                       <textarea type="text" name="problem" class="form-control" id="" placeholder="Type in your problem"></textarea>
+                       <label for="problem">DETAILS</label>
+                       <textarea type="text" name="problem" class="form-control" id="" placeholder="Give a brief description of your problem"></textarea>
                     </div>
                   </div>
                   
@@ -119,7 +143,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                 <center><button type="submit" class="btn btn-primary">Submit now!</button></center> 
+                 <center><button type="submit" class="btn btn-primary-brown">Submit now!</button></center> 
                 </div>
               </form>
             </div>
