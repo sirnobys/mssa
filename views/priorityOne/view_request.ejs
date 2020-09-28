@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%-include partials/head.ejs-%>
+  <style type="text/css">
+     .bg1{
+   
+
+
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("./images/6.jpg"); /* The least supported option. */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+        
+      }
+  </style>
+<body class=" hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+<div class="wrapper">
+  <!-- Navbar -->
+  <%-include partials/navbar.ejs-%>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%-include partials/sidebar.ejs-%>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+     <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Your Messages</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item "><a href="/dashboard2">Home</a></li>
+              <li class="breadcrumb-item"><a href="/assigned2">Assigned Issues</a></li>
+              <li class="breadcrumb-item "><a href="/completed2">Completed</a></li>
+              <li class="breadcrumb-item "><a href="/issues2">New Issues</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+          
+   
+
+
+ 
+
+
+
+<section class="content bg1">
+      
+
+        <!-- Timelime example  -->
+        <div class="row">
+          <div class="col-md-12">
+            <!-- The time line -->
+            <div class="timeline">
+              <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-red">10 June. 2020</span>
+              </div>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+                <% 
+                               if(view && view.length > 0){
+                              view.map((row) => { %>
+              <div>
+              
+                <i class="fas fa-envelope bg-blue"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock text-info"></i> <%=row.time%></span>
+                  <h3 class="timeline-header">
+                    <% if(row.seen_status == 0){ %>   
+                    <a href="#"><i class="fa fa-info-circle text-success"></i> </a><span class="small"> New Message</span>
+                     <% } else{ %>  
+                      <a href="#"><i class="fa fa-check-circle  "></i> </a><span class="small"> Marked as read</span> 
+                      <% } %>
+                    </h3>
+                  <div class="timeline-body">
+                   <div class="direct-chat-msg">
+                    <div class="direct-chat-infos clearfix">
+                      <span class="direct-chat-name float-left"><%=row.sent_by%></span>
+                      <span class="direct-chat-timestamp float-right text-success text-info"><%=row.date%></span>
+                    </div>
+                    <!-- /.direct-chat-infos -->
+                    <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                    <!-- /.direct-chat-img -->
+                    <div class="direct-chat-text">
+                     <%=row.message%>
+                    </div>
+                    <!-- /.direct-chat-text -->
+                  </div>
+                  </div>
+                  <div class="timeline-footer">
+                    <% if(row.seen_status == 0){ %>                            
+                    <a class="btn btn-primary btn-sm" href="/status/<%=row.id%>?status=0">Seen</a>
+                    <!-- <a class="btn btn-danger btn-sm" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a> -->
+                    <% } else{ %>  
+                    <a class="btn btn-primary btn-sm disabled" ><i class="fa fa-eye"></i></a>
+                    <a class="btn btn-danger btn-sm" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a>
+                    <% } %>
+                    
+                  </div>
+                </div>
+                
+              </div>
+               <% }) } else{%>
+              
+                   
+                <div class="content" >
+                  <div class="text-center">
+
+                  <div class="">
+                  <h2 class="text-success"><i style="font-size: 80px" class="fas fa-inbox text-success"></i></h2>
+                     <h6 class="text-success mt-3">requests go here </h6>
+                    
+                  <h2 style="font-size: 50px" class="text-dark"> No requests to display.</h2>
+
+          
+                  </div>
+                    
+                  <!-- /.error-content -->
+                </div>
+                  <!-- /.error-page -->
+                </div>
+
+              <% } %>
+
+              <!-- END timeline item -->
+              <!-- timeline item -->
+             <!--  <% 
+                               if(see && see.length > 0){
+                              see.map((row) => { %>
+              <div>
+                
+                                                            
+                <i class="fas fa-eye bg-green"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
+                  <h3 class="timeline-header no-border"><a href="#">
+                    <%=row.sent_to%>
+                  </a> <span class="small">has read your message</span> </h3>
+                  <div class="timeline-footer">
+                    <a class="btn btn-danger btn-sm">Delete</a>
+                  </div>
+                </div>
+                
+                
+              </div>
+              <% }) } %> -->
+              <!-- END timeline item -->
+              <!-- timeline item -->
+              
+
+
+              <!-- <div>
+                <i class="fas fa-comments bg-yellow"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                  <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                  <div class="timeline-body">
+                    Take me to your leader!
+                    Switzerland is small and neutral!
+                    We are more like Germany, ambitious and misunderstood!
+                  </div>
+                  <div class="timeline-footer">
+                    <a class="btn btn-warning btn-sm">View comment</a>
+                  </div>
+                </div>
+              </div> -->
+              <!-- END timeline item -->
+              <!-- timeline time label -->
+              <div class="time-label">
+                <span class="bg-green">3 Jan. 2014</span>
+              </div>
+              <!-- /.timeline-label -->
+              <!-- timeline item -->
+              <!-- <div>
+                <i class="fa fa-camera bg-purple"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+                  <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                  <div class="timeline-body">
+                    <img src="https://placehold.it/150x100" alt="...">
+                    <img src="https://placehold.it/150x100" alt="...">
+                    <img src="https://placehold.it/150x100" alt="...">
+                    <img src="https://placehold.it/150x100" alt="...">
+                    <img src="https://placehold.it/150x100" alt="...">
+                  </div>
+                </div>
+              </div> -->
+              <!-- END timeline item -->
+              <!-- timeline item -->
+              
+              <!-- END timeline item -->
+              <div>
+                <i class="fas fa-clock bg-gray"></i>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+      </section>
+      </div>
+      <!-- /.timeline -->
+
+    <!-- </section> -->
+  <!-- /.card -->
+</div>
+<!-- /.col -->
+
+<!-- /.content-wrapper -->
+
+
+<!-- /.control-sidebar -->
+
+<!-- Main Footer -->
+<%-include partials/footer.ejs-%>
+
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<%-include partials/scripts.ejs-%>
+</body>
+</html>
+
+
+
+
+

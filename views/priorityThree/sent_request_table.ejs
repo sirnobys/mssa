@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%-include priorityTwo/partials/head.ejs-%>
+  <%-include partials/head.ejs-%>
   <style type="text/css">
      .bg1{
    
@@ -16,11 +16,11 @@
 <body class=" hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 <div class="wrapper">
   <!-- Navbar -->
-  <%-include priorityTwo/partials/navbar.ejs-%>
+  <%-include partials/navbar.ejs-%>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%-include priorityTwo/partials/sidebar.ejs-%>
+  <%-include partials/sidebar.ejs-%>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,7 +28,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Your Messages</h1>
+            <h1 class="m-0 text-dark">Messages sent by you</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -60,16 +60,16 @@
             <!-- /.card -->
 
             <div class="card">
-              <div class="card-header bg-warning">
-                <h3 class="card-title">VIEW REQUEST</h3>
+              <div class="card-header bg-info">
+                <h3 class="card-title">VIEW REQUESTS</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead class="bg-warning">
+                  <thead class="bg-info">
                   <tr>
-                    <th>ID</th>
-                    <th>SENDER</th>
+                    <!-- <th>ID</th> -->
+                    <th>SENT TO</th>
                     <th>MESSAGE</th>
                     <th>TIME</th>
                     <th>DATE</th>
@@ -80,18 +80,18 @@
                   <tbody>
                     <%  view.map((row) => { %>
                     <tr>
-                      <td><%= row.id%></td>
-                      <td><%= row.sent_by %></td>                   
+                      <!-- <td><%= row.id%></td> -->
+                      <td><%= row.sent_to %></td>                   
                       <td><%= row.message%></td>
                       <td><%= row.time%></td>  
                       <td><%= row.date%></td>  
                       <td align="center">
                          <% if(row.seen_status == 0){ %>  
 
-                          <span class="badge bg-danger">YOU HAVE NOT READ</span>
+                          <span class="badge bg-danger">HAS NOT BEEN READ</span>
 
                            <% } else{ %>  
-                        <span class="badge bg-success">YOU HAVE READ</span>
+                        <span class="badge bg-success">HAS BEEN READ</span>
                             <% } %>
                       </td>
                       <td>
@@ -101,14 +101,14 @@
                       
 
                       <div align="center" >
-                         <% if(row.seen_status == 0){ %>  
-                         <a class="btn btn-outline-primary mx-2 " href="/status/<%=row.id%>?status=0" onclick="return confirm('Mark as read?');" style="border-radius: 100%"><i class="fa fa-eye"></i>
-                       </a> 
-                          <% } else{ %>  
+                        
+                         <a class="btn btn-outline-success mx-2" href="/edit_request?id=<%=row.id %>" onclick="return confirm('Do you want to edit your request');" ><i class="fa fa-edit"></i>
+                         </a> 
+                     
                        
                       <a class="btn btn-outline-danger" href="/status/<%=row.id%>?status=1" onclick="return confirm('Sure you want to delete?');"><i class="fa fa-trash"></i></a>
                       </div>
-                      <% } %>
+                    
 
                       
 
@@ -121,10 +121,10 @@
                   
                 
                   </tbody>
-                  <tfoot class="bg-warning">
+                  <tfoot class="bg-info">
                   <tr>
-                    <th>ID</th>
-                    <th>SENDER</th>
+                    <!-- <th>ID</th> -->
+                    <th>SENT TO</th>
                     <th>MESSAGE</th>
                     <th>TIME</th>
                     <th>DATE</th>
@@ -158,12 +158,12 @@
 <!-- /.control-sidebar -->
 
 <!-- Main Footer -->
-<%-include priorityTwo/partials/footer.ejs-%>
+<%-include partials/footer.ejs-%>
 
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<%-include priorityTwo/partials/scripts.ejs-%>
+<%-include partials/scripts.ejs-%>
 </body>
 </html>
 

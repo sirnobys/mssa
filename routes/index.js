@@ -258,9 +258,9 @@ router.get('/issues',isAuthenticated,async function(req, res, next) {
   var priority = req.session.user.priority;
   var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
   //var completed = 1;
-  var data=[username];
+  //var data=[username];
   var staff = await db.query("SELECT * FROM staff WHERE priority=1");
-  var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",data);
+  var problems1 = await db.query("SELECT * FROM problems where assigned_to=? and acknowledged is null",username);
   var problems2 = await db.query("SELECT * FROM problems where completed =0 AND assigned_to IS NULL");
 
   if (priority==1){
@@ -680,14 +680,32 @@ router.get('/success', function(req, res, next) {
 
 router.get('/request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
+   var priority = req.session.user.priority;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM staff");
    //query to select staff from table
-  res.render('send_request', {
-   title: 'Express' ,
-   account:users,
-   staff:sql.length > 0 ? sql : null,});
-});
+   if(priority ==1){
+    res.render('priorityOne/sendrequest', {
+      title: 'Express' ,
+      account:users,
+      staff:sql.length > 0 ? sql : null,});
+   }
+   else if(priority ==2){
+    res.render('priorityTwo/sendrequest', {
+      title: 'Express' ,
+      account:users,
+      staff:sql.length > 0 ? sql : null,});
+   }
+   else if(priority ==3){
+    res.render('priorityThree/sendrequest', {
+      title: 'Express' ,
+      account:users,
+      staff:sql.length > 0 ? sql : null,});
+   }
+   }
+
+ 
+);
 
 
 router.post('/insert_message',isAuthenticated,async function(req, res, next) {
@@ -746,44 +764,105 @@ router.post('/insert_estimated',isAuthenticated,async function(req, res, next) {
 
 router.get('/view_request2',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
+   var priority = req.session.user.priority;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
    //query to select staff from table
-  res.render('view_request', {
-   title: 'Express' ,
-   account:users,
-   view:sql.length > 0 ? sql : null,
-   see:seen
-  });
+   if(priority==1){
+    res.render('priorityOne/view_request', {
+      title: 'Express' ,
+      account:users,
+      view:sql.length > 0 ? sql : null,
+      see:seen
+     });
+   }
+   else if(priority==2){
+    res.render('priorityTwo/view_request', {
+      title: 'Express' ,
+      account:users,
+      view:sql.length > 0 ? sql : null,
+      see:seen
+     });
+   }
+  else if(priority==3){
+    res.render('priorityThree/view_request', {
+      title: 'Express' ,
+      account:users,
+      view:sql.length > 0 ? sql : null,
+      see:seen
+     });
+   }
+  
 });
 
 router.get('/view_request_table',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
+   var priority = req.session.user.priority;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_to = ? ORDER BY ID DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY ID DESC LIMIT 10",username);
    //query to select staff from table
-  res.render('view_request_table', {
-   title: 'Express',
-   account:users,
-   view:sql,
-   see:seen
-  });
+   if(priority==1){
+    res.render('priorityOne/view_request_table', {
+      title: 'Express',
+      account:users,
+      view:sql,
+      see:seen
+     });
+   }
+   if(priority==2){
+    res.render('priorityTwo/view_request_table', {
+      title: 'Express',
+      account:users,
+      view:sql,
+      see:seen
+     });
+   }
+   if(priority==3){
+    res.render('priorityThree/view_request_table', {
+      title: 'Express',
+      account:users,
+      view:sql,
+      see:seen
+     });
+   }
+  
 });
 
 router.get('/sent_request_table',isAuthenticated,async function(req, res, next) {
    var username = req.session.user.name;
+   var priority = req.session.user.priority;
    var users = await db.query("SELECT * FROM staff WHERE name = ? limit 1",username);
    var sql= await db.query("SELECT * FROM mis_requests where delete_status = 0 and sent_by = ? ORDER BY date DESC LIMIT 10",username);
    var seen= await db.query("SELECT * FROM mis_requests where seen_status = 1 and sent_by =? ORDER BY date and time DESC LIMIT 10",username);
    //query to select staff from table
-  res.render('sent_request_table', {
-   title: 'Express',
-   account:users,
-   view:sql,
-   see:seen
-  });
+   if (priority==1){
+    res.render('priorityOne/sent_request_table', {
+      title: 'Express',
+      account:users,
+      view:sql,
+      see:seen
+     });
+   }
+   else if (priority==2){
+    res.render('priorityTwo/sent_request_table', {
+      title: 'Express',
+      account:users,
+      view:sql,
+      see:seen
+     });
+   }
+   else if (priority==3){
+    res.render('priorityThree/sent_request_table', {
+      title: 'Express',
+      account:users,
+      view:sql,
+      see:seen
+     });
+   }
+ 
+
 });
 
 

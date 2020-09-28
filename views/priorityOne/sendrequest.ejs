@@ -2,6 +2,7 @@
 <html lang="en">
   <%-include partials/head.ejs-%>
 <%-include partials/style.ejs-%>
+
 <body class="bg1 hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
 <div class="wrapper">
   <!-- Navbar -->
@@ -18,7 +19,7 @@
         <div class="row mb-2">
           <!-- <div class="col-sm-6">
             <h1 class="m-0 text-dark">Send Request</h1>
-          </div>< -->!-- /.col -->
+          </div>< --><!-- !-- /.col -->
          <!--  <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item "><a href="/dashboard2" class="text-white">Home</a></li>
@@ -27,7 +28,7 @@
               <li class="breadcrumb-item "><a href="/issues2"class="text-white">New Issues</a></li>
             </ol>
             </ol>
-          </div><!-- /.col --> -->
+          </div> /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -36,26 +37,26 @@
     <!-- Main content -->
            <section class="content">
             <div class="container row">
-              <div class="col-md-2"></div>
+              <div class="col-md-3"></div>
             <div class="col-md-8">
           
             
             <!-- /.card -->
             <div class="card card-primary">
                 <div class="card-header bstyle card-title">
-                  <center>Send Request</center>
+                  <center>SEND REQUEST</center>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form id="quickForm" action="" method="post">
+                <form id="quickForm" action="/insert_message" method="post">
                   <div class="card-body">
                     
   
                     <div class="form-row">
                       
                       <div class="form-group col-md-12">
-                        <label for="staff">Select Staff</label>
-                       <select class="form-control" name="category">
+                        <label for="staff">SELECT STAFF</label>
+                       <select class="form-control" name="staff">
                         
                           <option disabled selected >Select Staff</option>
                           <% 
@@ -71,8 +72,8 @@
   
                   
                       <div class="form-group col-md-12">
-                         <label for="request">Request</label>
-                         <textarea name="request" class="form-control"></textarea>
+                         <label for="request">MESSAGE</label>
+                         <textarea name="message" class="form-control" rows="5"></textarea>
                       </div>
                     
   
@@ -94,8 +95,8 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                   <center><button type="submit" class="btn btn-primary">      
-                    <i class="fa fa-paper-plane"></i> Submit </button></center> 
+                   <center><button onclick="return('send request?')" type="submit" class="btn btn-primary">      
+                    <i class="fa fa-paper-plane"></i> SUBMIT </button></center> 
                   </div>
                 </form>
               </div>
@@ -118,7 +119,8 @@
   <%-include partials/footer.ejs-%>
 </div>
 <!-- ./wrapper -->
-<%-include partials/scripts.ejs-%>
+  <%-include partials/scripts.ejs-%>
+
 <!-- REQUIRED SCRIPTS -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -127,31 +129,11 @@
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<!-- <script src="dist/js/adminlte.min.js"></script> -->
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<script type="text/javascript">
-  $('#password, #cpassword').on('keyup', function () {
-    if ($('#password').val()!="" & $('#cpassword').val()!="")
-     {    
-             if ($('#password').val() == $('#cpassword').val())
-              {
-                 $('#message').html('Matching').css('color','green');
-              }
-
-               else 
-    $('#message').html('Not Matching').css('color', 'red');
-}
+<!-- <script src="dist/js/demo.js"></script> -->
 
 
-               else 
-    $('#message').html('enter confirm password').css('color', 'red');
-
-});
-
-
-
-</script>
 
 <script>
 
@@ -181,7 +163,7 @@
           },
     
     
-           request: {
+           message: {
             required: true,
             // minlength: 10
           },
@@ -223,7 +205,7 @@
             
           },
     
-          request: {
+          message: {
             required: "Please type in your message",
             
           },
@@ -243,5 +225,6 @@
       });
     });
     </script>
+
 </body>
 </html>

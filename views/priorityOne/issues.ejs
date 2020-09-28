@@ -41,19 +41,20 @@
 
             <div class="card">
               <div class="card-header bg-primary">
-                <h3 class="card-title">New Tasks</h3>
+                <h3 class="card-title">NEW TASKS</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead class="bg-primary">
                   <tr>
-                    <th>Name</th>
+                    <th>NAME</th>
                     <th>ID</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Issue</th>
-                    <th>Estimated Completion Date</th>
+                    <th>EMAIL</th>
+                    <!-- <th>Phone</th> -->
+                    <th>ISSUE</th>
+                    <th>ESTIMATED COMPLETION DATE</th>
+                    <!-- <th>ACTION</th> -->
                     <th>&nbsp;</th>
                     
 
@@ -66,14 +67,14 @@
                       <td><%= problems.name %></td>                   
                       <td><%= problems.staff_student_id%></td>
                       <td><%= problems.email%></td>  
-                      <td><%= problems.phone%></td>  
+                      <!-- <td><%= problems.phone%></td>   -->
                       <td><%= problems.issue%></td>
 
                       <form action="/insert_estimated" method="POST">
                         
                       
                      
-                      <td width="1"> <input style="width: 230px" type="datetime-local" required=""  class="form-control" name="time">
+                      <td width="1"> <input style="width: 230px" type="datetime-local" required=""  value="2000-07-01T12:00" class="form-control" name="time">
                           <input type="" hidden="" name="id" value="<%= problems.id%>">
                       </td>                                                                                 
                       <td align="center">
@@ -102,13 +103,13 @@
                   </tbody>
                   <tfoot class="bg-primary">
                   <tr>
-                    <th>Name</th>
+                    <th>NAME</th>
                     <th>ID</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Issue</th>
-                    <th>Estimated Date</th>
-                    <th>Action</th>
+                    <th>EMAIL</th>
+                    <!-- <th>PHONE</th> -->
+                    <th>ISSUE</th>
+                    <th>ESTIMATED COMPLETION DATE</th>
+                    <th>ACTION</th>
                   </tr>
                   </tfoot>
                 </table>
